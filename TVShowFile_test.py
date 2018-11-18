@@ -30,6 +30,9 @@ class TVShowFileParserTests(unittest.TestCase):
     def setUp(self):
         self.filename = TVShowFile.TVShowFileParser("test.s01E01.avi")
 
+    def tearDown(self):
+        self.filename = None
+
     def testObjVariblesNone(self):
         self.assertIsNone(self.filename.showName)
         self.assertIsNone(self.filename.season)
@@ -38,8 +41,8 @@ class TVShowFileParserTests(unittest.TestCase):
         self.assertIsNone(self.filename.fileTags)
         self.assertIsNone(self.filename.fileExt)
         
-    def testgetShowName(self):
-        self.assertEqual(self.filename.getShowName(),"test")
+    def testgetShowData(self):
+        self.assertTrue(self.filename.getShowData())
     
 if __name__ == '__main__':
     unittest.main()
