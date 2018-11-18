@@ -24,6 +24,7 @@ class TVShowFile:
 
 class TVShowFileParser:
 
+    # Object Constructor
     def __init__(self,filename):
         self.filename = filename
         self.showName = None
@@ -33,5 +34,25 @@ class TVShowFileParser:
         self.fileTags = None
         self.fileExt = None
 
-    def getShowName(self):
-        return "test"
+        # Failed to get any input
+        if not filename:
+            return None
+        else:
+            self.getShowData()
+        
+    # Object Destructor
+    def __del__(self):
+        pass
+
+    # Parse show filename and store required information in object
+    # attributes
+    def getShowData(self):
+
+        # Reference code https://github.com/ROldford/tvregex
+        # Reference code https://github.com/dbr/tvnamer
+        # Reference code https://github.com/ghickman/tvrenamr
+        
+        # https://regex101.com/r/cq8tVJ/1
+        # https://regex101.com/r/cq8tVJ/2
+        # https://regex101.com/r/cq8tVJ/5
+        return True
