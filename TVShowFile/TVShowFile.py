@@ -51,8 +51,15 @@ class TVShowFileParser:
         # Reference code https://github.com/ROldford/tvregex
         # Reference code https://github.com/dbr/tvnamer
         # Reference code https://github.com/ghickman/tvrenamr
-        
+
         # https://regex101.com/r/cq8tVJ/1
         # https://regex101.com/r/cq8tVJ/2
         # https://regex101.com/r/cq8tVJ/5
+        # https://regex101.com/r/cq8tVJ/7
+        # https://regex101.com/r/cq8tVJ/8
+        # https://regex101.com/r/cq8tVJ/9
+        # https://regex101.com/r/cq8tVJ/10
+        
+        # My Patterns
+        # https://regex101.com/r/mS4a2A/1
         return True
