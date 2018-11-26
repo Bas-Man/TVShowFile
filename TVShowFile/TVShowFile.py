@@ -1,5 +1,6 @@
 import os
 import re
+from .patterns import regex_SXEX
 
 class TVShowFile:
 
@@ -31,7 +32,6 @@ class TVShowFileParser:
         self.season = None
         self.episode = None
         self.seasonEpisode = None
-        self.fileTags = None
         self.fileExt = None
 
         # Failed to get any input
@@ -48,18 +48,30 @@ class TVShowFileParser:
     # attributes
     def getShowData(self):
 
+        pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
+
+        match = pattern.match(self.filename)
+        
+        if match:
+            # These values must exist if there is a match
+            self.showName = match.group("showname")
+            self.season = match.group("showseason")
+            self.episode = match.group("episode")
+            self.fileExt = match.group("fileext")
+            print("\nName: " + self.showName)
+            print("Season: " + self.season)
+            print("Episode: " + self.episode)
+            print("Ext: " + self.fileExt)
+
         # Reference code https://github.com/ROldford/tvregex
         # Reference code https://github.com/dbr/tvnamer
         # Reference code https://github.com/ghickman/tvrenamr
 
-        # https://regex101.com/r/cq8tVJ/1
-        # https://regex101.com/r/cq8tVJ/2
-        # https://regex101.com/r/cq8tVJ/5
-        # https://regex101.com/r/cq8tVJ/7
-        # https://regex101.com/r/cq8tVJ/8
-        # https://regex101.com/r/cq8tVJ/9
+
         # https://regex101.com/r/cq8tVJ/10
         
         # My Patterns
-        # https://regex101.com/r/mS4a2A/1
+        # Possible starting places
+        # https://regex101.com/r/mS4a2A/9/
+        # https://regex101.com/r/8AJ8Lg/4/ #Possible Option
         return True
