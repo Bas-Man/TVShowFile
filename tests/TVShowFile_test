@@ -1,5 +1,5 @@
 import unittest
-from TVShowFile import TVShowFile
+from tvshowfile import TVShowFile
 
 
 class TVShowFileTests(unittest.TestCase):
@@ -28,7 +28,7 @@ class TVShowFileTests(unittest.TestCase):
 class TVShowFileParserTests(unittest.TestCase):
 
     def setUp(self):
-        self.filename = TVShowFile.TVShowFileParser("test.s01E01.avi")
+        self.filename = TVShowFile.TVShowFileParser("test.avi")
 
     def tearDown(self):
         self.filename = None
@@ -38,7 +38,6 @@ class TVShowFileParserTests(unittest.TestCase):
         self.assertIsNone(self.filename.season)
         self.assertIsNone(self.filename.episode)
         self.assertIsNone(self.filename.seasonEpisode)
-        self.assertIsNone(self.filename.fileTags)
         self.assertIsNone(self.filename.fileExt)
         
     def testgetShowData(self):
