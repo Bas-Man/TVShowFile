@@ -1,6 +1,6 @@
 import os
 import re
-from .patterns import regex_SXEX
+from .patterns import regex_SXEX, regex_YEAR
 
 class TVShowFile:
 
@@ -29,10 +29,14 @@ class TVShowFileParser:
     def __init__(self,filename):
         self.filename = filename
         self.showName = None
+        self.year = None
         self.season = None
         self.episode = None
         self.seasonEpisode = None
+        self.firstEpisode = None
+        self.lastEpisode = None
         self.fileExt = None
+        self.multiEpisode = False
 
         # Failed to get any input
         if not filename:
@@ -47,22 +51,6 @@ class TVShowFileParser:
     # Parse show filename and store required information in object
     # attributes
     def getShowData(self):
-
-        pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
-
-        match = pattern.match(self.filename)
-        
-        if match:
-            # These values must exist if there is a match
-            self.showName = match.group("showname")
-            self.season = match.group("showseason")
-            self.episode = match.group("episode")
-            self.fileExt = match.group("fileext")
-            print("\nName: " + self.showName)
-            print("Season: " + self.season)
-            print("Episode: " + self.episode)
-            print("Ext: " + self.fileExt)
-
         # Reference code https://github.com/ROldford/tvregex
         # Reference code https://github.com/dbr/tvnamer
         # Reference code https://github.com/ghickman/tvrenamr
@@ -74,4 +62,87 @@ class TVShowFileParser:
         # Possible starting places
         # https://regex101.com/r/mS4a2A/9/
         # https://regex101.com/r/8AJ8Lg/4/ #Possible Option
-        return True
+        pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
+
+        match = pattern.match(self.filename)
+        
+        if match:
+            self._patternSXEX(match)
+            return True
+        else:
+            return False
+      
+    def _patternSXEX(self,match):
+        # These values must exist if there is a match
+        self.showName = match.group("showname")
+        self.season = match.group("showseason")
+        self.fileExt = match.group("fileext")
+        
+        # Optional Values
+        # Multi Episode file
+        if match.group("firstepisode"):
+            self.firstEpisode = match.group("firstepisode")
+            self.lastEpisode = match.group("lastepisode")
+            self.seasonEpisode = "S" + self.season + "E" + self.firstEpisode + "E" + self.lastEpisode
+            # Set multiEpisode to True
+            self.multiEpisode = True
+        # Single Episode file
+        else:
+            self.episode = match.group("episode")
+            self.seasonEpisode = "S" + self.season + "E" + self.episode
+        
+        # File contains a Year
+        self._patternYear()
+
+    def _patternYear(self):
+
+        # Get Year if it exists. We have to search the string since we do not have a full string match regex
+        pattern = re.compile(regex_YEAR, re.IGNORECASE | re.VERBOSE)
+        match = pattern.search(self.filename)
+
+        if match:
+            self.year = match.group("year")
+
+    def getShowName(self):
+        return self.showName
+
+    def getSeason(self):
+        return self.season
+
+    def getEpisode(self):
+        return self.episode
+
+    def getSeasonEpisode(self):
+        return self.seasonEpisode
+
+    def getFileExt(self):
+        return self.fileExt
+
+    def getFirstEpisode(self):
+        if self.firstEpisode is not None:
+            return self.firstEpisode
+        else:
+            return ""
+
+    def getLastEpisode(self):
+        if self.lastEpisode is not None:
+            return self.lastEpisode
+        else:
+            return ""
+
+    def getYear(self):
+        if self.year is not None:
+            return self.year
+        else:
+            return ""
+
+    # Check that Filename had a Year used before calling getYear
+    def hasYear(self):
+        if self.year is not None:
+            return True
+        return False
+
+    def isMultiEpisode(self):
+        if self.multiEpisode:
+            return True
+        return False
