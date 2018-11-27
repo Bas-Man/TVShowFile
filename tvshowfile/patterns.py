@@ -33,3 +33,7 @@ test_SXEX = ("v.2009.S01E13.the.title.avi\n"
 "S.W.A.T.2018.S02E04.The.Dash.avi\n"
 "S.W.A.T.(2018).S02E01.Title.720p.avi\n"
 "Doctor Who (2005).S01E01.1080p.mp3")
+
+regex_YEAR = r"""
+	(?P<year>\d{4})[ ).S]?
+	"""
