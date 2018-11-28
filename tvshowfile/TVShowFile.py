@@ -115,40 +115,59 @@ class TVShowFileParser:
         if match:
             self.quality = match.group("quality")
 
+    # Get the string held in filename. The full name of the file being
+    # processed
+    def getFilename(self):
+        return self.filename
 
+    # Get the string held in showName. This is unprocessed so will contain
+    # any characthers like . - or others which separate words in the name
     def getShowName(self):
         return self.showName
 
+    # Get the string held in Season.
+    # This will be a number only without the "S"
     def getSeason(self):
         return self.season
 
+    # Get the string held in episode. This will be empty if
+    # isMultiEpisode is True. This will be a number only without the "E"
     def getEpisode(self):
         return self.episode
-
+    
+    # Get the string held in seasonEpisode This will be in the form of
+    # SXXEXX or SXXEXXEXX
     def getSeasonEpisode(self):
         return self.seasonEpisode
 
+    # Get the string held in fileExt should be avi mp3 srt or such
     def getFileExt(self):
         return self.fileExt
 
+    # Get the string held in firstEpisode. This will only exist
+    # if isMultiEpisode is True
     def getFirstEpisode(self):
         if self.firstEpisode is not None:
             return self.firstEpisode
         else:
             return ""
 
+    # Get the string held in lastEpisode. This will only exist
+    # if isMultiEpisode is True
     def getLastEpisode(self):
         if self.lastEpisode is not None:
             return self.lastEpisode
         else:
             return ""
 
+    # Get the string held in attribute year
     def getYear(self):
         if self.year is not None:
             return self.year
         else:
             return ""
 
+    # Get the string held in attribute quality
     def getQuality(self):
         if self.quality is not None:
             return self.quality
@@ -161,7 +180,15 @@ class TVShowFileParser:
             return True
         return False
 
+    # Check if the file contains more than one episode needed
+    # when working with firstEpisode and lastEpisode
     def isMultiEpisode(self):
         if self.multiEpisode:
+            return True
+        return False
+
+    # Check if filename contains a quality string like 720p
+    def hasQaulity(self):
+        if self.quality is not None:
             return True
         return False
