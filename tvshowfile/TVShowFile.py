@@ -1,6 +1,6 @@
 import os
 import re
-from .patterns import regex_SXEX, regex_YEAR
+from .patterns import regex_SXEX, regex_YEAR, regex_quality
 
 class TVShowFile:
 
@@ -35,6 +35,7 @@ class TVShowFileParser:
         self.seasonEpisode = None
         self.firstEpisode = None
         self.lastEpisode = None
+        self.quality = None
         self.fileExt = None
         self.multiEpisode = False
 
@@ -93,6 +94,8 @@ class TVShowFileParser:
         
         # File contains a Year
         self._patternYear()
+        # File contains Quality
+        self._getQuality()
 
     def _patternYear(self):
 
@@ -102,6 +105,16 @@ class TVShowFileParser:
 
         if match:
             self.year = match.group("year")
+
+    def _getQuality(self):
+
+        # Get video quality if listed in the file name
+        pattern = re.compile(regex_quality, re.IGNORECASE | re.VERBOSE)
+        match = pattern.search(self.filename)
+
+        if match:
+            self.quality = match.group("quality")
+
 
     def getShowName(self):
         return self.showName
@@ -136,6 +149,12 @@ class TVShowFileParser:
         else:
             return ""
 
+    def getQuality(self):
+        if self.quality is not None:
+            return self.quality
+        else:
+            return ""
+            
     # Check that Filename had a Year used before calling getYear
     def hasYear(self):
         if self.year is not None:
