@@ -37,3 +37,7 @@ test_SXEX = ("v.2009.S01E13.the.title.avi\n"
 regex_YEAR = r"""
 	(?P<year>\d{4})[ ).S]?
 	"""
+	
+regex_quality = r"""
+	(?P<quality>[0-9]{3,4}(p|i))
+	"""
