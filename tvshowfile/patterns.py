@@ -39,5 +39,5 @@ regex_YEAR = r"""
 	"""
 	
 regex_quality = r"""
-	(?P<quality>[0-9]{3,4}(p|i))
+	(?P<quality>[0-9]{3,4}[p|i])
 	"""
