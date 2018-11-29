@@ -5,7 +5,7 @@ from context import tvshowfile
 class TVShowFileParserTests(unittest.TestCase):
 
     def setUp(self):
-        self.filename = tvshowfile.tvshowfile.TVShowFileParser("test.2018.S01E01E02.avi")
+        self.filename = tvshowfile.Parser("test.2018.S01E01E02.avi")
 
     def tearDown(self):
         self.filename = None
