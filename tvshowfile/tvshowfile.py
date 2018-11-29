@@ -38,7 +38,7 @@ class TVShowFileParser:
         self.quality = None
         self.fileExt = None
         self.multiEpisode = False
-        self.wasParsed = False
+        self.Parsed = False
 
         # Failed to get any input
         if not filename:
@@ -70,9 +70,10 @@ class TVShowFileParser:
         
         if match:
             self._patternSXEX(match)
+            self.Parsed = True
             return True
         else:
-            self.wasParsed = False
+            self.Parsed = False
             return False
       
     def _patternSXEX(self,match):
@@ -194,3 +195,7 @@ class TVShowFileParser:
         if self.quality is not None:
             return True
         return False
+
+    def wasParsed(self):
+        return self.Parsed
+
