@@ -23,7 +23,7 @@ class TVShowFile:
     def FilePath(self):
         return self.SourceFile
 
-class TVShowFileParser:
+class Parser:
 
     # Object Constructor
     def __init__(self,filename):
