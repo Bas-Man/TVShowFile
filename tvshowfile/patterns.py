@@ -35,6 +35,14 @@ test_SXEX = ("v.2009.S01E13.the.title.avi\n"
 "Doctor Who (2005).S01E01.1080p.mp3\n"
 "The Flash 2014 S01E03 HDTV x264-LOL[ettv].avi")
 
+regex_title_year = r"""
+	(?P<ShowName>.*)(?=(?:[. ](?:[S][0-9]{2})|[s][0-9][x])) #Show name
+	(?: # Get year if present
+	[ .]?(?<=(?P<Year>[.(]\d{4}[).]))
+	| # Blank alternate required
+	)
+	"""
+
 regex_YEAR = r"""
 	(?P<year>\d{4})[ ).S]+
 	"""
