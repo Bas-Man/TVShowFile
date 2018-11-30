@@ -57,15 +57,14 @@ class Parser:
         # Reference code https://github.com/dbr/tvnamer
         # Reference code https://github.com/ghickman/tvrenamr
 
-
         # https://regex101.com/r/cq8tVJ/10
         
         # My Patterns
         # Possible starting places
         # https://regex101.com/r/mS4a2A/9/
         # https://regex101.com/r/8AJ8Lg/4/ #Possible Option
-        pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
 
+        pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self.filename)
         
         if match:
@@ -87,12 +86,14 @@ class Parser:
         if match.group("firstepisode"):
             self.firstEpisode = match.group("firstepisode")
             self.lastEpisode = match.group("lastepisode")
+            # Build Season and Mulit Episode String
             self.seasonEpisode = "S" + self.season + "E" + self.firstEpisode + "E" + self.lastEpisode
             # Set multiEpisode to True
             self.multiEpisode = True
         # Single Episode file
         else:
             self.episode = match.group("episode")
+            # Build Season and single Episode String
             self.seasonEpisode = "S" + self.season + "E" + self.episode
         
         # File contains a Year
