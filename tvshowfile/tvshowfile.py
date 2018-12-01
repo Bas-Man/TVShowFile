@@ -64,7 +64,7 @@ class Parser:
         # Possible starting places
         # https://regex101.com/r/mS4a2A/9/
         # https://regex101.com/r/8AJ8Lg/4/ #Possible Option
-        # https://regex101.com/r/iqxoAB/1 # Name only omitting Year if presents
+        # https://regex101.com/r/iqxoAB/2 # Name only omitting Year if presents
 
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self.filename)
@@ -199,8 +199,13 @@ class Parser:
             return True
         return False
 
+    # Return True or False if the file was able to be parsed.
     def wasParsed(self):
         return self.Parsed
+
+    # Return the show name without year if it exists
+    # TODO: This may need to be changed to handle show names that have four digits in their names
+    # TODO: Example "The 4400"
 
     def getShowNameOnly(self):
         if self.showNameOnly is not None:
@@ -221,7 +226,7 @@ class Parser:
                     if match.group(groupNum) is not None: # This group has a match we can use it and break from loop
                         self.showNameOnly = match.group(groupNum)
                         break
-                        
+
                 return self.showNameOnly
             else:
                 self.showNameOnly = ""
