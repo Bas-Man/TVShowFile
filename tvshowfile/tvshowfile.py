@@ -26,8 +26,10 @@ class TVShowFile:
 class Parser:
 
     '''
-        This object has the responsibility of collecting information from the file name of a TV show DVD rip or other digital source
-        Give a filename such as "Castle.2009.S01E01.avi" it will identify and store the following elements
+        This object has the responsibility of collecting information from the 
+        file name of a TV show DVD rip or other digital source
+        Give a filename such as "Castle.2009.S01E01.avi" it will identify and 
+        store the following elements
         The object will be populated using __init__
 
         + filename
@@ -313,10 +315,6 @@ class Parser:
                 # move to next 
         '''
         return self.Parsed
-
-    # Return the show name without year if it exists
-    # TODO: This may need to be changed to handle show names that have four digits in their names
-    # TODO: Example "The 4400"
 
     def getShowNameOnly(self):
         '''
