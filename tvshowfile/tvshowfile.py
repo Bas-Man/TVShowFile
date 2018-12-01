@@ -1,6 +1,6 @@
 import os
 import re
-from .patterns import regex_SXEX, regex_YEAR, regex_quality
+from .patterns import regex_SXEX, regex_name_only, regex_YEAR, regex_quality
 
 class TVShowFile:
 
@@ -29,6 +29,7 @@ class Parser:
     def __init__(self,filename):
         self.filename = filename
         self.showName = None
+        self.showNameOnly = None
         self.year = None
         self.season = None
         self.episode = None
@@ -63,6 +64,7 @@ class Parser:
         # Possible starting places
         # https://regex101.com/r/mS4a2A/9/
         # https://regex101.com/r/8AJ8Lg/4/ #Possible Option
+        # https://regex101.com/r/iqxoAB/1 # Name only omitting Year if presents
 
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self.filename)
@@ -200,3 +202,27 @@ class Parser:
     def wasParsed(self):
         return self.Parsed
 
+    def getShowNameOnly(self):
+        if self.showNameOnly is not None:
+            # This has been called before, simply returned stored value
+            return self.showNameOnly
+        else:
+            # We need to parse set and return. This function has not previsouly been called
+            pattern = re.compile(regex_name_only, re.IGNORECASE | re.VERBOSE)
+            match = pattern.match(self.filename)
+
+            if match:
+                # This pattern contains 6 groups. group(0), group(3) and group(6) are of no interest.
+                # So we restrict to 1,2,4,5 skip 3 using a continue statement
+                for groupNum in range(0, len(match.groups()) - 1):
+                    groupNum = groupNum + 1 # skip group(0) by incrementing at the start of the loop
+                    if groupNum == 3: #Skip group(3)
+                        continue
+                    if match.group(groupNum) is not None: # This group has a match we can use it and break from loop
+                        self.showNameOnly = match.group(groupNum)
+                        break
+                        
+                return self.showNameOnly
+            else:
+                self.showNameOnly = ""
+                return ""
