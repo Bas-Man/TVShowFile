@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# This program demonstrate obtain show name without year information
+# This program demonstrate obtaining show name without year information
 import sys
 sys.path.insert(0, "..")
 
