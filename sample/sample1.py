@@ -27,7 +27,7 @@ if succ.wasParsed:
 print("\n\n")
 
 # Example 2 Successful parsing of file
-if succ.wasParsed:
+if succ2.wasParsed:
     print("Able to parse file: " + succ2.getFilename())
     print("File: " + succ2.getFilename())
     print("Name: " + succ2.getShowName())
