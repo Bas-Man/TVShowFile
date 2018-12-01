@@ -18,7 +18,7 @@ if test1.wasParsed:
     newFileName += ")."
     newFileName += test1.getSeasonEpisode() + "."
     newFileName += test1.getFileExt()
-    print("New File: " + newFileName)
+    print("Old File: " + test1.filename + "; New File: " + newFileName)
 
 # Example 2 
 if test2.wasParsed:
@@ -28,7 +28,7 @@ if test2.wasParsed:
     newFileName += ")."
     newFileName += test2.getSeasonEpisode() + "."
     newFileName += test2.getFileExt()
-    print("New File: " + newFileName)
+    print("Old File: " + test2.filename + "; New File: " + newFileName)
 
 # Example 3 
 if test3.wasParsed:
@@ -38,4 +38,4 @@ if test3.wasParsed:
     newFileName += ")."
     newFileName += test3.getSeasonEpisode() + "."
     newFileName += test3.getFileExt()
-    print("New File: " + newFileName)
+    print("Old File: " + test3.filename + "; New File: " + newFileName)
