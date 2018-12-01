@@ -25,6 +25,22 @@ class TVShowFile:
 
 class Parser:
 
+    '''
+        This object has the responsibility of collecting information from the file name of a TV show DVD rip or other digital source
+        Give a filename such as "Castle.2009.S01E01.avi" it will identify and store the following elements
+        The object will be populated using __init__
+
+        + filename
+        + showName Castle.2009
+        + showNameOnly Castle
+        + year 2009
+        + season 01
+        + episode 01
+        + seasonEpisode S01E01
+        + fileExt avi
+        
+    '''
+
     # Object Constructor
     def __init__(self,filename):
         self.filename = filename
@@ -54,6 +70,10 @@ class Parser:
     # Parse show filename and store required information in object
     # attributes
     def getShowData(self):
+        '''
+        Parse show filename and store required information in object
+        attributes
+
         # Reference code https://github.com/ROldford/tvregex
         # Reference code https://github.com/dbr/tvnamer
         # Reference code https://github.com/ghickman/tvrenamr
@@ -65,6 +85,7 @@ class Parser:
         # https://regex101.com/r/mS4a2A/9/
         # https://regex101.com/r/8AJ8Lg/4/ #Possible Option
         # https://regex101.com/r/iqxoAB/2 # Name only omitting Year if presents
+        '''
 
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self.filename)
@@ -78,7 +99,21 @@ class Parser:
             return False
       
     def _patternSXEX(self,match):
-        # These values must exist if there is a match
+        '''
+            This is an internal function and should not need to be called.
+            It is called by __init__ 
+            It should match file names with Series and Episodes in the form
+            of SXXEXX  or SXXEXXEXX (Multi-Episode)
+
+            This method as no return type SEE method 'wasParsed'
+        '''
+
+        '''
+            showName, season, and fileExt are expected to match as a minimum
+            EXX and EXXEXX are matched conditionally
+            Year of first Episode and resolution are looked for but not assumed
+            to be present
+        '''
         self.showName = match.group("showname")
         self.season = match.group("showseason")
         self.fileExt = match.group("fileext")
@@ -105,7 +140,11 @@ class Parser:
 
     def _patternYear(self):
 
-        # Get Year if it exists. We have to search the string since we do not have a full string match regex
+        '''
+            This method should not need to be called by code it will be called by _pattern* internal methods
+            Get Year if it exists. We have to search the string since we do not have a full string match regex
+        '''
+
         pattern = re.compile(regex_YEAR, re.IGNORECASE | re.VERBOSE)
         match = pattern.search(self.filename)
 
@@ -113,94 +152,166 @@ class Parser:
             self.year = match.group("year")
 
     def _getQuality(self):
+        '''
+            This method should not need to be called by code it will be called by _pattern* internal methods
+            Get video quality if listed in the file name
+            This currently only supports 720p or 1080p
+        '''
+        #TODO: Update pattern to also support SD values. Need to find examples
 
-        # Get video quality if listed in the file name
         pattern = re.compile(regex_quality, re.IGNORECASE | re.VERBOSE)
         match = pattern.search(self.filename)
 
         if match:
             self.quality = match.group("quality")
 
-    # Get the string held in filename. The full name of the file being
-    # processed
     def getFilename(self):
+        '''
+            Get the string held in filename. The full name of the file being
+            processed
+
+            Returns a Str
+        '''
         return self.filename
 
-    # Get the string held in showName. This is unprocessed so will contain
-    # any characthers like . - or others which separate words in the name
     def getShowName(self):
+        '''
+            Get the string held in showName. This is unprocessed so will contain
+            any characthers like . - or others which separate words in the name
+
+            Returns a Str
+        '''
         return self.showName
 
-    # Get the string held in Season.
-    # This will be a number only without the "S"
     def getSeason(self):
+        '''
+            Get the string held in Season.
+            This will be a number only without the "S"
+
+            Returns a Str
+        '''
         return self.season
 
-    # Get the string held in episode. This will be empty if
-    # isMultiEpisode is True. This will be a number only without the "E"
     def getEpisode(self):
+        '''
+            Get the string held in episode. This will be empty if
+            isMultiEpisode is True. This will be a number only without the "E"
+
+            Returns a Str
+        '''
+        # If this is True then episode will still be None. We should return an empty string
+        if self.isMultiEpisode():
+            return ""
         return self.episode
     
-    # Get the string held in seasonEpisode This will be in the form of
-    # SXXEXX or SXXEXXEXX
     def getSeasonEpisode(self):
+        '''
+            Get the string held in seasonEpisode This will be in the form of
+            SXXEXX or SXXEXXEXX
+
+            Returns a Str
+        '''
         return self.seasonEpisode
 
-    # Get the string held in fileExt should be avi mp3 srt or such
     def getFileExt(self):
+        '''
+            Get the string held in fileExt should be avi mp3 srt or such
+        '''
         return self.fileExt
 
-    # Get the string held in firstEpisode. This will only exist
-    # if isMultiEpisode is True
     def getFirstEpisode(self):
+        '''
+            Get the string held in firstEpisode. This will only exist
+            if isMultiEpisode is True
+            
+            You should check if isMultiEpisode is True before calling this method
+            Returns a Str
+        '''
         if self.firstEpisode is not None:
             return self.firstEpisode
         else:
             return ""
 
-    # Get the string held in lastEpisode. This will only exist
-    # if isMultiEpisode is True
     def getLastEpisode(self):
+        '''
+            Get the string held in lastEpisode. This will only exist
+            if isMultiEpisode is True
+
+            You should check if isMultiEpisode is True before calling this method
+            Returns a Str
+        '''
         if self.lastEpisode is not None:
             return self.lastEpisode
         else:
             return ""
 
-    # Get the string held in attribute year
     def getYear(self):
+        '''
+            Get the string held in attribute year
+            Returns a Str. This will be "" if there is no year was found in the filename
+        '''
         if self.year is not None:
             return self.year
         else:
             return ""
 
-    # Get the string held in attribute quality
     def getQuality(self):
+        '''
+            Get the string held in attribute quality
+
+            Returns a Str. This will be an empty string if no quality was found
+            This will be something like 720p or 1080p
+        '''
         if self.quality is not None:
             return self.quality
         else:
             return ""
             
-    # Check that Filename had a Year used before calling getYear
     def hasYear(self):
+        '''
+            Check that Filename had a Year used before calling getYear
+
+            Returns True or False
+        '''
         if self.year is not None:
             return True
         return False
 
-    # Check if the file contains more than one episode needed
-    # when working with firstEpisode and lastEpisode
     def isMultiEpisode(self):
+        '''
+            Check if the file contains more than one episode.
+            This is needed when working with firstEpisode and lastEpisode
+
+            This method should be called so you know if you should call
+            getEpisode() or getFirstEpisode() and getLastEpisode()
+
+            Returns True or False
+        '''
         if self.multiEpisode:
             return True
         return False
 
     # Check if filename contains a quality string like 720p
     def hasQaulity(self):
+        '''
+            Check if filename contains a quality string like 720p
+
+            Returns True or False
+        '''
         if self.quality is not None:
             return True
         return False
 
     # Return True or False if the file was able to be parsed.
     def wasParsed(self):
+        '''
+            Return True or False if the file was able to be parsed.
+
+            if obj.wasParsed:
+                # Do some work
+            else:
+                # move to next 
+        '''
         return self.Parsed
 
     # Return the show name without year if it exists
@@ -208,6 +319,13 @@ class Parser:
     # TODO: Example "The 4400"
 
     def getShowNameOnly(self):
+        '''
+            Return the show name without year if it exists
+            
+            Returns a Str
+        '''
+        #TODO: This may need to be changed to handle show names that have four digits in their names
+        #TODO: Example "The 4400"
         if self.showNameOnly is not None:
             # This has been called before, simply returned stored value
             return self.showNameOnly
