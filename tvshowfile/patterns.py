@@ -44,15 +44,15 @@ regex_title_year = r"""
 	"""
 
 regex_name_only = r"""
-	(?P<Title1>.*)\s\(\d{4}
+	(?P<title1>.*)\s\(\d{4}
 	|
-	(?P<Title2>.*)(^[.]\d{4})
+	(?P<title2>.*)(^[.]\d{4})
 	|
-	(?P<Title3>.*)[. ]\(
+	(?P<title3>.*)[. ]\(
 	|
-	(?P<Title4>.*[^\d)])[. ]+(\d{4}|S).*
+	(?P<title4>.*[^\d)])[. ]+(\d{4}|S).*
 	"""
-	
+
 regex_YEAR = r"""
 	(?P<year>\d{4})[ ).S]+
 	"""
