@@ -2,6 +2,12 @@ import os
 import re
 from .patterns import regex_SXEX, regex_name_only, regex_YEAR, regex_quality
 
+# This may be used to store exception show names in the module directory
+# This will help keep things clean.
+
+modPath = os.path.abspath(__file__)
+modDirPath = os.path.dirname(modPath)
+
 class TVShowFile:
 
     def __init__(self,SourceFile):
