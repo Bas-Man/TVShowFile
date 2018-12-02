@@ -4,7 +4,6 @@ from .patterns import regex_SXEX, regex_name_only, regex_YEAR, regex_quality
 
 # This may be used to store exception show names in the module directory
 # This will help keep things clean.
-
 modPath = os.path.abspath(__file__)
 modDirPath = os.path.dirname(modPath)
 
@@ -156,6 +155,9 @@ class Parser:
         pattern = re.compile(regex_YEAR, re.IGNORECASE | re.VERBOSE)
         match = pattern.search(self.filename)
 
+        # TODO: Consider adding a test to check that matched
+        # TODO: string is within a reasonable range to be a year
+        # TODO: Perhaps 1920 to current year
         if match:
             self.year = match.group("year")
 
@@ -334,7 +336,7 @@ class Parser:
             # This has been called before, simply returned stored value
             return self.showNameOnly
         else:
-            # We need to parse set and return. This function has not previsouly been called
+            # We need to parse, set and return. This function has not previously been called
             pattern = re.compile(regex_name_only, re.IGNORECASE | re.VERBOSE)
             match = pattern.match(self.filename)
 
@@ -353,3 +355,24 @@ class Parser:
             else:
                 self.showNameOnly = ""
                 return ""
+
+    def loadExceptionList(self):
+        '''
+            This method loads a list of show names which are exceptions that need
+            be handled differently. Examples S.W.A.T and The 4400
+
+        '''
+        pass
+
+    def writeExceptionList(self):
+        '''
+            This method write the contents of the exception list to file
+
+        '''
+        pass
+
+    def appendShowNameException(self):
+        '''
+            This method appends a new show name exception to the ExceptionList
+        '''
+        pass
