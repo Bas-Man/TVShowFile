@@ -1,5 +1,5 @@
 import unittest
-from context import tvshowfile
+from context import importer
 
 class TVShowFileTests(unittest.TestCase):
 
