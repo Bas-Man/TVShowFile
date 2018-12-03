@@ -131,15 +131,18 @@ class Parser:
             self.firstEpisode = match.group("firstepisode")
             self.lastEpisode = match.group("lastepisode")
             # Build Season and Mulit Episode String
-            self.seasonEpisode = "S" + self.season + "E" + self.firstEpisode + "E" + self.lastEpisode
+            #self.seasonEpisode = "S" + self.season + "E" + self.firstEpisode + "E" + self.lastEpisode
+            self.seasonEpisode = "S{0}E{1}E{2}".format(
+                self.season,self.firstEpisode,self.lastEpisode
+                )
             # Set multiEpisode to True
             self.multiEpisode = True
         # Single Episode file
         else:
             self.episode = match.group("episode")
             # Build Season and single Episode String
-            self.seasonEpisode = "S" + self.season + "E" + self.episode
-
+            #self.seasonEpisode = "S" + self.season + "E" + self.episode
+            self.seasonEpisode = "S{0}E{1}".format(self.season,self.episode)
         # File contains a Year
         self._patternYear()
         # File contains Quality
