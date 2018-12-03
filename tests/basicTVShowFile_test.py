@@ -4,7 +4,7 @@ from context import importer
 class TVShowFileTests(unittest.TestCase):
 
     def setUp(self):
-        self.showFile = tvshowfile.TVShowFile("/tmp/file")
+        self.showFile = importer.TVShowFile("/tmp/file")
 
     def testFilePath(self):
         self.assertEqual(self.showFile.FilePath(), "/tmp/file")
