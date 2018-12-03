@@ -1,5 +1,7 @@
 import os
 import re
+import datetime
+
 from .patterns import regex_SXEX, regex_name_only, regex_YEAR, regex_quality
 
 # This may be used to store exception show names in the module directory
@@ -131,7 +133,6 @@ class Parser:
             self.firstEpisode = match.group("firstepisode")
             self.lastEpisode = match.group("lastepisode")
             # Build Season and Mulit Episode String
-            #self.seasonEpisode = "S" + self.season + "E" + self.firstEpisode + "E" + self.lastEpisode
             self.seasonEpisode = "S{0}E{1}E{2}".format(
                 self.season,self.firstEpisode,self.lastEpisode
                 )
@@ -141,7 +142,6 @@ class Parser:
         else:
             self.episode = match.group("episode")
             # Build Season and single Episode String
-            #self.seasonEpisode = "S" + self.season + "E" + self.episode
             self.seasonEpisode = "S{0}E{1}".format(self.season,self.episode)
         # File contains a Year
         self._patternYear()
@@ -160,11 +160,11 @@ class Parser:
         pattern = re.compile(regex_YEAR, re.IGNORECASE | re.VERBOSE)
         match = pattern.search(self.filename)
 
-        # TODO: Consider adding a test to check that matched
-        # TODO: string is within a reasonable range to be a year
-        # TODO: Perhaps 1920 to current year
         if match:
-            self.year = match.group("year")
+            # Check that matched year string is between 1920 and the current year
+            # If this is not true, then we have probably matched a show name like "The 4400"
+            if(1920 <= int(match.group("year")) <= datetime.datetime.now().year):
+                self.year = match.group("year")
 
     def _getQuality(self):
         '''
