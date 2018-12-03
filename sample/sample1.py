@@ -3,11 +3,11 @@
 import sys
 sys.path.insert(0, "..")
 
-from tvshowfile import tvshowfile
+from tvshowfile import parser
 
-fail = tvshowfile.Parser("test.avi")
-succ = tvshowfile.Parser("test.S01E01.avi")
-succ2 = tvshowfile.Parser("test.S01E01.1080p.avi")
+fail = parser.Parser("test.avi")
+succ = parser.Parser("test.S01E01.avi")
+succ2 = parser.Parser("test.S01E01.1080p.avi")
 
 # Example 1 testing that file was able to be parsed or not
 if not fail.wasParsed():
