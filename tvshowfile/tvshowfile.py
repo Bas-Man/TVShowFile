@@ -31,9 +31,9 @@ class TVShowFile:
 class Parser:
 
     '''
-        This object has the responsibility of collecting information from the 
+        This object has the responsibility of collecting information from the
         file name of a TV show DVD rip or other digital source
-        Give a filename such as "Castle.2009.S01E01.avi" it will identify and 
+        Give a filename such as "Castle.2009.S01E01.avi" it will identify and
         store the following elements
         The object will be populated using __init__
 
@@ -45,7 +45,7 @@ class Parser:
         + episode 01
         + seasonEpisode S01E01
         + fileExt avi
-        
+
     '''
 
     # Object Constructor
@@ -69,7 +69,7 @@ class Parser:
             return None
         else:
             self.getShowData()
-        
+
     # Object Destructor
     def __del__(self):
         pass
@@ -86,7 +86,7 @@ class Parser:
         # Reference code https://github.com/ghickman/tvrenamr
 
         # https://regex101.com/r/cq8tVJ/10
-        
+
         # My Patterns
         # Possible starting places
         # https://regex101.com/r/mS4a2A/9/
@@ -96,7 +96,7 @@ class Parser:
 
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self.filename)
-        
+
         if match:
             self._patternSXEX(match)
             self.Parsed = True
@@ -104,11 +104,11 @@ class Parser:
         else:
             self.Parsed = False
             return False
-      
+
     def _patternSXEX(self,match):
         '''
             This is an internal function and should not need to be called.
-            It is called by __init__ 
+            It is called by __init__
             It should match file names with Series and Episodes in the form
             of SXXEXX  or SXXEXXEXX (Multi-Episode)
 
@@ -124,7 +124,7 @@ class Parser:
         self.showName = match.group("showname")
         self.season = match.group("showseason")
         self.fileExt = match.group("fileext")
-        
+
         # Optional Values
         # Multi Episode file
         if match.group("firstepisode"):
@@ -139,7 +139,7 @@ class Parser:
             self.episode = match.group("episode")
             # Build Season and single Episode String
             self.seasonEpisode = "S" + self.season + "E" + self.episode
-        
+
         # File contains a Year
         self._patternYear()
         # File contains Quality
@@ -148,8 +148,10 @@ class Parser:
     def _patternYear(self):
 
         '''
-            This method should not need to be called by code it will be called by _pattern* internal methods
-            Get Year if it exists. We have to search the string since we do not have a full string match regex
+            This method should not need to be called by code it will be called
+            by _pattern* internal methods
+            Get Year if it exists. We have to search the string since we do not
+            have a full string match regex
         '''
 
         pattern = re.compile(regex_YEAR, re.IGNORECASE | re.VERBOSE)
@@ -163,7 +165,8 @@ class Parser:
 
     def _getQuality(self):
         '''
-            This method should not need to be called by code it will be called by _pattern* internal methods
+            This method should not need to be called by code it will be called
+            by _pattern* internal methods
             Get video quality if listed in the file name
             This currently only supports 720p or 1080p
         '''
@@ -209,11 +212,12 @@ class Parser:
 
             Returns a Str
         '''
-        # If this is True then episode will still be None. We should return an empty string
+        # If this is True then episode will still be None.
+        # We should return an empty string
         if self.isMultiEpisode():
             return ""
         return self.episode
-    
+
     def getSeasonEpisode(self):
         '''
             Get the string held in seasonEpisode This will be in the form of
@@ -233,8 +237,9 @@ class Parser:
         '''
             Get the string held in firstEpisode. This will only exist
             if isMultiEpisode is True
-            
-            You should check if isMultiEpisode is True before calling this method
+
+            You should check if isMultiEpisode is True before calling this
+            method
             Returns a Str
         '''
         if self.firstEpisode is not None:
@@ -247,7 +252,8 @@ class Parser:
             Get the string held in lastEpisode. This will only exist
             if isMultiEpisode is True
 
-            You should check if isMultiEpisode is True before calling this method
+            You should check if isMultiEpisode is True before calling this
+            method
             Returns a Str
         '''
         if self.lastEpisode is not None:
@@ -258,7 +264,8 @@ class Parser:
     def getYear(self):
         '''
             Get the string held in attribute year
-            Returns a Str. This will be "" if there is no year was found in the filename
+            Returns a Str. This will be "" if there is no year was found in the
+            filename
         '''
         if self.year is not None:
             return self.year
@@ -276,7 +283,7 @@ class Parser:
             return self.quality
         else:
             return ""
-            
+
     def hasYear(self):
         '''
             Check that Filename had a Year used before calling getYear
@@ -320,34 +327,39 @@ class Parser:
             if obj.wasParsed:
                 # Do some work
             else:
-                # move to next 
+                # move to next
         '''
         return self.Parsed
 
     def getShowNameOnly(self):
         '''
             Return the show name without year if it exists
-            
+
             Returns a Str
         '''
-        #TODO: This may need to be changed to handle show names that have four digits in their names
+        #TODO: This may need to be changed to handle show names that have four
+        #digits in their names
         #TODO: Example "The 4400"
         if self.showNameOnly is not None:
             # This has been called before, simply returned stored value
             return self.showNameOnly
         else:
-            # We need to parse, set and return. This function has not previously been called
+            # We need to parse, set and return. This function has not previously
+            # been called
             pattern = re.compile(regex_name_only, re.IGNORECASE | re.VERBOSE)
             match = pattern.match(self.filename)
 
             if match:
-                # This pattern contains 6 groups. group(0), group(3) and group(6) are of no interest.
+                # This pattern contains 6 groups. group(0), group(3) and
+                #group(6) are of no interest.
                 # So we restrict to 1,2,4,5 skip 3 using a continue statement
                 for groupNum in range(0, len(match.groups()) - 1):
-                    groupNum = groupNum + 1 # skip group(0) by incrementing at the start of the loop
+                    groupNum = groupNum + 1 # skip group(0) by incrementing at
+                    #the start of the loop
                     if groupNum == 3: #Skip group(3)
                         continue
-                    if match.group(groupNum) is not None: # This group has a match we can use it and break from loop
+                    if match.group(groupNum) is not None: # This group has a
+                    #match we can use it and break from loop
                         self.showNameOnly = match.group(groupNum)
                         break
 
@@ -358,7 +370,8 @@ class Parser:
 
     def loadExceptionList(self):
         '''
-            This method loads a list of show names which are exceptions that need
+            This method loads a list of show names which are exceptions that
+            need
             be handled differently. Examples S.W.A.T and The 4400
 
         '''
