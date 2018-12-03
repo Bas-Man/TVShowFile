@@ -1,10 +1,10 @@
 import unittest
-from context import tvshowfile
+from context import parser
 
 class TVShowFileParserTests(unittest.TestCase):
 
     def setUp(self):
-        self.filename = tvshowfile.Parser("test.avi")
+        self.filename = parser.Parser("test.avi")
 
     def tearDown(self):
         self.filename = None
@@ -23,6 +23,6 @@ class TVShowFileParserTests(unittest.TestCase):
 
     def testFileNotValid(self):
         self.assertFalse(self.filename.Parsed)
-    
+
 if __name__ == '__main__':
     unittest.main()
