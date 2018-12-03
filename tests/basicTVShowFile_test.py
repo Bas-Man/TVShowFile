@@ -1,10 +1,10 @@
 import unittest
-from tvshowfile import TVShowFile
+from context import tvshowfile
 
 class TVShowFileTests(unittest.TestCase):
-    
+
     def setUp(self):
-        self.showFile = TVShowFile.TVShowFile("/tmp/file")
+        self.showFile = tvshowfile.TVShowFile("/tmp/file")
 
     def testFilePath(self):
         self.assertEqual(self.showFile.FilePath(), "/tmp/file")
