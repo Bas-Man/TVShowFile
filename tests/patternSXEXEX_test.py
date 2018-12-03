@@ -1,11 +1,11 @@
 import unittest
-from context import tvshowfile
+from context import parser
 
 
 class TVShowFileParserTests(unittest.TestCase):
 
     def setUp(self):
-        self.filename = tvshowfile.Parser("test.s01E01E02.avi")
+        self.filename = parser.Parser("test.s01E01E02.avi")
 
     def tearDown(self):
         self.filename = None
@@ -19,16 +19,16 @@ class TVShowFileParserTests(unittest.TestCase):
         self.assertEqual(self.filename.lastEpisode, "02")
         self.assertEqual(self.filename.seasonEpisode, "S01E01E02")
         self.assertEqual(self.filename.fileExt,"avi")
-        
+
         print("\nName: " + self.filename.getShowName())
         print("Season: " + self.filename.getSeason())
         print("First Episode: " + self.filename.getFirstEpisode())
         print("Last Episode: " + self.filename.getLastEpisode())
         print("SeasonEpisode: " + self.filename.getSeasonEpisode())
         print("Ext: " + self.filename.getFileExt())
-    
+
     def testgetShowData(self):
         self.assertTrue(self.filename.getShowData())
-    
+
 if __name__ == '__main__':
     unittest.main()
