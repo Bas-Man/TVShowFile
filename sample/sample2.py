@@ -4,15 +4,15 @@
 import sys
 sys.path.insert(0, "..")
 
-from tvshowfile import tvshowfile
+from tvshowfile import parser
 
-test1 = tvshowfile.Parser("v.2009.S01E13.the.title.avi")
-test2 = tvshowfile.Parser("S.W.A.T.2018.S02E04.The.Dash.avi")
-test3 = tvshowfile.Parser("Castle (2015) S02E12.avi")
-test4 = tvshowfile.Parser("Castle.(2015).S02E11.avi")
-test5 = tvshowfile.Parser("Doctor Who (2005).S01E01.1080p.mp3")
+test1 = parser.Parser("v.2009.S01E13.the.title.avi")
+test2 = parser.Parser("S.W.A.T.2018.S02E04.The.Dash.avi")
+test3 = parser.Parser("Castle (2015) S02E12.avi")
+test4 = parser.Parser("Castle.(2015).S02E11.avi")
+test5 = parser.Parser("Doctor Who (2005).S01E01.1080p.mp3")
 
-# Example 1 
+# Example 1
 if test1.wasParsed:
     print("Able to parse file: " + test1.getFilename())
     print("File: " + test1.getFilename())
@@ -26,7 +26,7 @@ if test1.wasParsed:
     print("Ext: " + test1.getFileExt())
 
 
-# Example 2 
+# Example 2
 if test2.wasParsed:
     print("Able to parse file: " + test2.getFilename())
     print("File: " + test2.getFilename())
@@ -39,7 +39,7 @@ if test2.wasParsed:
     print("Quality: " + test2.getQuality())
     print("Ext: " + test2.getFileExt())
 
-# Example 3 
+# Example 3
 if test3.wasParsed:
     print("Able to parse file: " + test3.getFilename())
     print("File: " + test3.getFilename())
@@ -52,7 +52,7 @@ if test3.wasParsed:
     print("Quality: " + test3.getQuality())
     print("Ext: " + test3.getFileExt())
 
-# Example 4 
+# Example 4
 if test4.wasParsed:
     print("Able to parse file: " + test4.getFilename())
     print("File: " + test4.getFilename())
@@ -65,7 +65,7 @@ if test4.wasParsed:
     print("Quality: " + test4.getQuality())
     print("Ext: " + test4.getFileExt())
 
-# Example 5 
+# Example 5
 if test5.wasParsed:
     print("Able to parse file: " + test5.getFilename())
     print("File: " + test5.getFilename())
