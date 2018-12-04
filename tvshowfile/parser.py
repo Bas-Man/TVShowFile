@@ -62,6 +62,8 @@ class Parser:
         Parse show filename and store required information in object
         attributes
 
+        '''
+
         # Reference code https://github.com/ROldford/tvregex
         # Reference code https://github.com/dbr/tvnamer
         # Reference code https://github.com/ghickman/tvrenamr
@@ -73,14 +75,16 @@ class Parser:
         # https://regex101.com/r/mS4a2A/9/
         # https://regex101.com/r/8AJ8Lg/4/ #Possible Option
         # https://regex101.com/r/iqxoAB/2 # Name only omitting Year if presents
-        '''
+        # https://regex101.com/r/iqxoAB/3 # Name only catches year as name
+        # in group(6)
+
 
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self.filename)
 
         # TODO: This should be changed at some point to support multiple
         # regex patterns
-        
+
         if match:
             self._patternSXEX(match)
             self.Parsed = True
@@ -344,10 +348,20 @@ class Parser:
                     if groupNum == 3: #Skip group(3)
                         continue
                     if match.group(groupNum) is not None: # This group has a
-                    #match we can use it and break from loop
-                        self.showNameOnly = match.group(groupNum)
-                        break
+                        #match we can use it and break from loop
 
+                        # We can probably handle exceptions here. This presently
+                        # is a hard code fix that needs to be resolved soon
+                        if ((groupNum == 5) and (match.group(groupNum +1) ==
+                            '4400')):
+                            print("GroupNum:" + str(groupNum) + "\n")
+                            self.showNameOnly = "{0}.{1}".format(
+                                match.group(groupNum),match.group(groupNum + 1)
+                            )
+                        else:
+                            self.showNameOnly = match.group(groupNum)
+                        break
+                print("ShowNameOnly: " + self.showNameOnly)
                 return self.showNameOnly
             else:
                 self.showNameOnly = ""
