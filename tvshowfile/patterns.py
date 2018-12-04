@@ -21,22 +21,6 @@ regex_SXEX = r"""
 )
 """
 
-test_SXEX = ("v.2009.S01E13.the.title.avi\n"
-"Se7en.(1995).S01E01.blah.avi\n"
-"Arrow.S01E01.blah1.avi\n"
-"Castle.(2015).S01E01.avi\n"
-"Castle (2015) S01x03.avi\n"
-"Castle.2015.S01E10.avi\n"
-"Castle.S01E22.avi\n"
-"Castle.(2015).S02E11.avi\n"
-"Castle (2015) S02E12.avi\n"
-"S.W.A.T.S01E02.720p.avi\n"
-"S.W.A.T.S02E02E03.The.Dash.720p.avi\n"
-"S.W.A.T.2018.S02E04.The.Dash.avi\n"
-"S.W.A.T.(2018).S02E01.Title.720p.avi\n"
-"Doctor Who (2005).S01E01.1080p.mp3\n"
-"The Flash 2014 S01E03 HDTV x264-LOL[ettv].avi")
-
 regex_title_year = r"""
 	(?P<ShowName>.*)(?=(?:[. ](?:[S][0-9]{2})|[s][0-9][x])) #Show name
 	(?: # Get year if present
@@ -58,7 +42,7 @@ regex_name_only = r"""
 regex_YEAR = r"""
 	(?P<year>\d{4})[ ).S]+
 	"""
-	
+
 regex_quality = r"""
 	(?P<quality>[0-9]{3,4}[p|i])
 	"""
