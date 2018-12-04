@@ -78,6 +78,9 @@ class Parser:
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self.filename)
 
+        # TODO: This should be changed at some point to support multiple
+        # regex patterns
+        
         if match:
             self._patternSXEX(match)
             self.Parsed = True
