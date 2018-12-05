@@ -13,29 +13,32 @@ test3 = parser.Parser("Castle (2015) S02E12.avi")
 # Example 1
 if test1.wasParsed:
     #Start building to filename
-    newFileName = test1.getShowNameOnly().capitalize()
-    newFileName +=  ".(" + test1.getYear()
-    newFileName += ")."
-    newFileName += test1.getSeasonEpisode() + "."
-    newFileName += test1.getFileExt()
+    newFileName = "{}.({}).{}.{}".format(
+        test1.getShowNameOnly(),
+        test1.getYear(),
+        test1.getSeasonEpisode(),
+        test1.getFileExt()
+    )
     print("Old File: " + test1.filename + "; New File: " + newFileName)
 
 # Example 2
 if test2.wasParsed:
     #Start building to filename
-    newFileName = test2.getShowNameOnly()
-    newFileName +=  ".(" + test2.getYear()
-    newFileName += ")."
-    newFileName += test2.getSeasonEpisode() + "."
-    newFileName += test2.getFileExt()
+    newFileName = "{}.({}).{}.{}".format(
+        test2.getShowNameOnly(),
+        test2.getYear(),
+        test2.getSeasonEpisode(),
+        test2.getFileExt()
+    )
     print("Old File: " + test2.filename + "; New File: " + newFileName)
 
 # Example 3
 if test3.wasParsed:
     #Start building to filename
-    newFileName = test3.getShowNameOnly()
-    newFileName +=  ".(" + test3.getYear()
-    newFileName += ")."
-    newFileName += test3.getSeasonEpisode() + "."
-    newFileName += test3.getFileExt()
+    newFileName = "{}.({}).{}.{}".format(
+        test3.getShowNameOnly(),
+        test3.getYear(),
+        test3.getSeasonEpisode(),
+        test3.getFileExt()
+    )
     print("Old File: " + test3.filename + "; New File: " + newFileName)
