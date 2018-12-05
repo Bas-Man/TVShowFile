@@ -43,6 +43,6 @@ regex_YEAR = r"""
 	(?P<year>\d{4})[ ).S]+
 	"""
 
-regex_quality = r"""
-	(?P<quality>[0-9]{3,4}[p|i])
+regex_resolution = r"""
+	(?P<resolution>[0-9]{3,4}[p|i])
 	"""

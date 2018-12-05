@@ -2,7 +2,7 @@ import os
 import re
 import datetime
 
-from .patterns import regex_SXEX, regex_name_only, regex_YEAR, regex_quality
+from .patterns import regex_SXEX, regex_name_only, regex_YEAR, regex_resolution
 
 # This may be used to store exception show names in the module directory
 # This will help keep things clean.
@@ -40,7 +40,7 @@ class Parser:
         self.seasonEpisode = None
         self.firstEpisode = None
         self.lastEpisode = None
-        self.quality = None
+        self.resolution = None
         self.fileExt = None
         self.multiEpisode = False
         self.Parsed = False
@@ -131,8 +131,8 @@ class Parser:
             self.seasonEpisode = "S{0}E{1}".format(self.season,self.episode)
         # File contains a Year
         self._patternYear()
-        # File contains Quality
-        self._getQuality()
+        # File contains resolution
+        self._getResolution()
 
     def _patternYear(self):
 
@@ -152,20 +152,20 @@ class Parser:
             if(1920 <= int(match.group("year")) <= datetime.datetime.now().year):
                 self.year = match.group("year")
 
-    def _getQuality(self):
+    def _getResolution(self):
         '''
             This method should not need to be called by code it will be called
             by _pattern* internal methods
-            Get video quality if listed in the file name
+            Get video resolution if listed in the file name
             This currently only supports 720p or 1080p
         '''
         #TODO: Update pattern to also support SD values. Need to find examples
 
-        pattern = re.compile(regex_quality, re.IGNORECASE | re.VERBOSE)
+        pattern = re.compile(regex_resolution, re.IGNORECASE | re.VERBOSE)
         match = pattern.search(self.filename)
 
         if match:
-            self.quality = match.group("quality")
+            self.resolution = match.group("resolution")
 
     def getFilename(self):
         '''
@@ -261,15 +261,15 @@ class Parser:
         else:
             return ""
 
-    def getQuality(self):
+    def getResolution(self):
         '''
-            Get the string held in attribute quality
+            Get the string held in attribute resolution
 
-            Returns a Str. This will be an empty string if no quality was found
+            Returns a Str. This will be an empty string if no resolution was found
             This will be something like 720p or 1080p
         '''
-        if self.quality is not None:
-            return self.quality
+        if self.resolution is not None:
+            return self.resolution
         else:
             return ""
 
@@ -297,14 +297,14 @@ class Parser:
             return True
         return False
 
-    # Check if filename contains a quality string like 720p
-    def hasQaulity(self):
+    # Check if filename contains a resolution string like 720p
+    def hasResolution(self):
         '''
-            Check if filename contains a quality string like 720p
+            Check if filename contains a resolution string like 720p
 
             Returns True or False
         '''
-        if self.quality is not None:
+        if self.resolution is not None:
             return True
         return False
 
