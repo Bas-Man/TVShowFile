@@ -265,7 +265,8 @@ class Parser:
         '''
             Get the string held in attribute resolution
 
-            Returns a Str. This will be an empty string if no resolution was found
+            Returns a Str. This will be an empty string if no resolution was
+            found
             This will be something like 720p or 1080p
         '''
         if self.resolution is not None:
@@ -367,11 +368,13 @@ class Parser:
                 self.showNameOnly = ""
                 return ""
 
+    # TODO Need to consider if I want to move this to a separate module
+    # The idea being that we might wish to have a program for adding
+    # exceptions. May wish to consider a dict format for storing the data.
     def loadExceptionList(self):
         '''
             This method loads a list of show names which are exceptions that
-            need
-            be handled differently. Examples S.W.A.T and The 4400
+            need be handled differently. Examples S.W.A.T and The 4400
 
         '''
         pass
