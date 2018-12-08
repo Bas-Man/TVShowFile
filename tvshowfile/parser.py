@@ -6,8 +6,10 @@ from .patterns import regex_SXEX, regex_name_only, regex_YEAR, regex_resolution
 
 # This may be used to store exception show names in the module directory
 # This will help keep things clean.
-modPath = os.path.abspath(__file__)
-modDirPath = os.path.dirname(modPath)
+modDirPath = os.path.dirname(os.path.abspath(__file__))
+
+ExceptionList = ['s.w.a.t','the.4400']
+PeriodExceptionList = ['s.w.a.t']
 
 class Parser:
 
@@ -331,9 +333,16 @@ class Parser:
         #digits in their names
         #TODO: Example "The 4400"
         if self.showNameOnly is not None:
-            # This has been called before, simply returned stored value
+            # This has been called before, simply return stored value
             return self.showNameOnly
         else:
+            # if showNameIsAnException is true then the name is complete already
+            # We will use it as is without trying to re-parse the nameself.
+            # This does short circuit the logic so the "if match:" does not
+            # happen
+            if self.showNameIsAnException():
+                self.showNameOnly = self.showName
+                return self.showNameOnly
             # We need to parse, set and return. This function has not previously
             # been called
             pattern = re.compile(regex_name_only, re.IGNORECASE | re.VERBOSE)
@@ -348,21 +357,11 @@ class Parser:
                     #the start of the loop
                     if groupNum == 3: #Skip group(3)
                         continue
-                    if match.group(groupNum) is not None: # This group has a
-                        #match we can use it and break from loop
-
-                        # We can probably handle exceptions here. This presently
-                        # is a hard code fix that needs to be resolved soon
-                        if ((groupNum == 5) and (match.group(groupNum +1) ==
-                            '4400')):
-                            print("GroupNum:" + str(groupNum) + "\n")
-                            self.showNameOnly = "{0}.{1}".format(
-                                match.group(groupNum),match.group(groupNum + 1)
-                            )
-                        else:
-                            self.showNameOnly = match.group(groupNum)
+                    if match.group(groupNum) is not None:
+                        # This group has a match we can use it and break
+                        # from loop
+                        self.showNameOnly = match.group(groupNum)
                         break
-                print("ShowNameOnly: " + self.showNameOnly)
                 return self.showNameOnly
             else:
                 self.showNameOnly = ""
@@ -391,3 +390,22 @@ class Parser:
             This method appends a new show name exception to the ExceptionList
         '''
         pass
+
+    def showNameIsAnException(self):
+        '''
+            Intial implementation. Speed tests may be needed to find the fastest
+            search method.
+        '''
+        if self.showName.lower() in ExceptionList:
+            return True
+        else:
+            return False
+
+    def getCleanShowName(self):
+        '''
+
+        '''
+        if self.getShowNameOnly().lower() in PeriodExceptionList:
+            return self.getShowNameOnly()
+        else:
+            return self.getShowNameOnly().replace('.',' ')
