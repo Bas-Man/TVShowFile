@@ -22,7 +22,7 @@ if test1.wasParsed:
     print("Season: " + test1.getSeason())
     print("Episode: " + test1.getEpisode())
     print("SeasonEpisode: " + test1.getSeasonEpisode())
-    print("Quality: " + test1.getQuality())
+    print("Resolution: " + test1.getResolution())
     print("Ext: " + test1.getFileExt())
 
 
@@ -36,7 +36,7 @@ if test2.wasParsed:
     print("Season: " + test2.getSeason())
     print("Episode: " + test2.getEpisode())
     print("SeasonEpisode: " + test2.getSeasonEpisode())
-    print("Quality: " + test2.getQuality())
+    print("Resolution: " + test2.getResolution())
     print("Ext: " + test2.getFileExt())
 
 # Example 3
@@ -49,7 +49,7 @@ if test3.wasParsed:
     print("Season: " + test3.getSeason())
     print("Episode: " + test3.getEpisode())
     print("SeasonEpisode: " + test3.getSeasonEpisode())
-    print("Quality: " + test3.getQuality())
+    print("Resolution: " + test3.getResolution())
     print("Ext: " + test3.getFileExt())
 
 # Example 4
@@ -62,7 +62,7 @@ if test4.wasParsed:
     print("Season: " + test4.getSeason())
     print("Episode: " + test4.getEpisode())
     print("SeasonEpisode: " + test4.getSeasonEpisode())
-    print("Quality: " + test4.getQuality())
+    print("Resolution: " + test4.getResolution())
     print("Ext: " + test4.getFileExt())
 
 # Example 5
@@ -75,5 +75,5 @@ if test5.wasParsed:
     print("Season: " + test5.getSeason())
     print("Episode: " + test5.getEpisode())
     print("SeasonEpisode: " + test5.getSeasonEpisode())
-    print("Quality: " + test5.getQuality())
+    print("Resolution: " + test5.getResolution())
     print("Ext: " + test5.getFileExt())
