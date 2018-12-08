@@ -1,5 +1,5 @@
-from distutils.core import setup
-
+#from distutils.core import setup
+from setuptools import setup
 setup(
     name='TVShowFile',
     version='0.1dev',
@@ -12,6 +12,12 @@ setup(
     url='https://github.com/Bas-Man/TVShowFile',
     scripts=['sample/BuildNewShowFileName.py', 'sample/sample1.py',
         'sample/sample2.py'
+    ],
+    classifiers=[
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    'Operating System :: MacOS :: MacOS X',
+    'Operating System :: POSIX :: Linux'
     ],
     include_package_data=True,
 )
