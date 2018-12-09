@@ -418,7 +418,17 @@ class Parser:
             rtype True or False
         '''
         return ExceptionList.get(
-        self.getShowNameOnly().lower(),{}).get('keepPeriods',False)
+            self.getShowNameOnly().lower(),{}).get('keepPeriods',False)
+
+    def _getShowNameFromExceptionList(self):
+        '''
+            Internal method this returns the value from key: name or None if
+            if key is not found
+
+            rtype: None or Str
+        '''
+        return ExceptionList.get(
+            self.getShowName().lower(),{}).get('name',None)
 
     def _showNameisAnException(self):
         '''
@@ -439,7 +449,15 @@ class Parser:
 
             rtype: Str
         '''
-        if self._showNameisAnException() and self._showNameKeepsPeriods():
+        # Check if in exceptionList and if has name key, return name else ...
+        if self._showNameisAnException() and \
+            self._getShowNameFromExceptionList() is not None:
+                return self._getShowNameFromExceptionList()
+        # Check if key exists and if keepPeriods is True or False
+        # if keepPeriods is True just return showNameOnly
+        elif self._showNameisAnException() and self._showNameKeepsPeriods():
             return self.getShowNameOnly()
+        # keepPeriods is False so we want to remove any periods in the
+        # showNameOnly()
         else:
             return self.getShowNameOnly().replace('.',' ')
