@@ -13,6 +13,7 @@ setup(
     scripts=['sample/BuildNewShowFileName.py', 'sample/sample1.py',
         'sample/sample2.py'
     ],
+    #install_requires=[],
     classifiers=[
     'Development Status :: 4 - Beta',
     'Intended Audience :: Developers',
