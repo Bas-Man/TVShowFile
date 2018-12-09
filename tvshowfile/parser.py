@@ -8,8 +8,13 @@ from .patterns import regex_SXEX, regex_name_only, regex_YEAR, regex_resolution
 # This will help keep things clean.
 modDirPath = os.path.dirname(os.path.abspath(__file__))
 
-ExceptionList = ['s.w.a.t','the.4400']
-PeriodExceptionList = ['s.w.a.t']
+ExceptionList = {}
+ExceptionList['s.w.a.t'] = {}
+ExceptionList['s.w.a.t']['name'] = 'S.W.A.T'
+ExceptionList['s.w.a.t']['keepPeriods'] = True
+ExceptionList['the.4400'] = {}
+ExceptionList['the.4400']['name'] = 'The 4400'
+ExceptionList['the.4400']['keepPeriods'] = False
 
 class Parser:
 
@@ -393,19 +398,38 @@ class Parser:
 
     def showNameIsAnException(self):
         '''
-            Intial implementation. Speed tests may be needed to find the fastest
-            search method.
+            Using nested Dictionaries. This checks that there is an initial
+            Key in the ExceptionList
+
+            rtype: True or False
         '''
         if self.showName.lower() in ExceptionList:
             return True
         else:
             return False
 
-    def getCleanShowName(self):
+    def _showNameKeepsPeriods(self):
         '''
 
         '''
-        if self.getShowNameOnly().lower() in PeriodExceptionList:
-            return self.getShowNameOnly()
-        else:
-            return self.getShowNameOnly().replace('.',' ')
+        return ExceptionList.get(
+        self.getShowNameOnly().lower(),{}).get('keepPeriods',False)
+
+    def getCleanShowName(self):
+        '''
+            This method will return a clean show name without keepPeriods
+            the.4400 -> the 4400
+            Using an internal ExceptionList however periods will not be removed
+            for show names like s.w.a.
+
+            rtype: Str
+
+            TODO: This can be cleaned up a bit with some additional refactoring
+        '''
+        if self.getShowNameOnly().lower() in ExceptionList:
+            # Check if we keep periods or remove them
+            if self._showNameKeepsPeriods():
+                #if _showNameKeepsPeriods is true
+                return self.getShowNameOnly()
+            else:
+                return self.getShowNameOnly().replace('.',' ')
