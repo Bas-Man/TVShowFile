@@ -372,13 +372,15 @@ class Parser:
                 self.showNameOnly = ""
                 return ""
 
-    # TODO Need to consider if I want to move this to a separate module
-    # The idea being that we might wish to have a program for adding
-    # exceptions. May wish to consider a dict format for storing the data.
     def loadExceptionList(self):
         '''
+            # TODO Need to consider if I want to move this to a separate module
+            # The idea being that we might wish to have a program for adding
+            # exceptions. May wish to consider a dict format for storing the data.
+
             This method loads a list of show names which are exceptions that
             need be handled differently. Examples S.W.A.T and The 4400
+            # TODO: Yet to be implemented
 
         '''
         pass
@@ -386,13 +388,14 @@ class Parser:
     def writeExceptionList(self):
         '''
             This method write the contents of the exception list to file
-
+            # TODO: Yet to be implemented
         '''
         pass
 
     def appendShowNameException(self):
         '''
             This method appends a new show name exception to the ExceptionList
+            # TODO: Yet to be implemented
         '''
         pass
 
@@ -410,26 +413,33 @@ class Parser:
 
     def _showNameKeepsPeriods(self):
         '''
-
+            Internal method to check if the show name should keep its periods
+            Example S.W.A.T
+            rtype True or False
         '''
         return ExceptionList.get(
         self.getShowNameOnly().lower(),{}).get('keepPeriods',False)
 
-    def getCleanShowName(self):
+    def _showNameisAnException(self):
         '''
-            This method will return a clean show name without keepPeriods
-            the.4400 -> the 4400
-            Using an internal ExceptionList however periods will not be removed
-            for show names like s.w.a.
-
-            rtype: Str
-
-            TODO: This can be cleaned up a bit with some additional refactoring
+            Internal method to check if show name is in our ExceptionList
+            rtype True or False
         '''
         if self.getShowNameOnly().lower() in ExceptionList:
-            # Check if we keep periods or remove them
-            if self._showNameKeepsPeriods():
-                #if _showNameKeepsPeriods is true
-                return self.getShowNameOnly()
-            else:
-                return self.getShowNameOnly().replace('.',' ')
+            return True
+        else:
+            return False
+
+    def getCleanShowName(self):
+        '''
+            This method will return a clean show name without periods
+            the.4400 -> the 4400
+            Using an internal ExceptionList however periods will not be removed
+            for show names like s.w.a.t
+
+            rtype: Str
+        '''
+        if self._showNameisAnException() and self._showNameKeepsPeriods():
+            return self.getShowNameOnly()
+        else:
+            return self.getShowNameOnly().replace('.',' ')
