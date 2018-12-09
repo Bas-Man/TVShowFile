@@ -34,6 +34,8 @@ class TVShowFileParserTests(unittest.TestCase):
     def testgetShowData(self):
         self.assertTrue(self.filename.getShowData())
 
+    def testgetShowNameOnly(self):
+        self.assertEqual(self.filename.getShowNameOnly(), 'test')
     def testhasYear(self):
         self.assertTrue(self.filename.hasYear())
 

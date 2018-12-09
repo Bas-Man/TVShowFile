@@ -6,8 +6,15 @@ from .patterns import regex_SXEX, regex_name_only, regex_YEAR, regex_resolution
 
 # This may be used to store exception show names in the module directory
 # This will help keep things clean.
-modPath = os.path.abspath(__file__)
-modDirPath = os.path.dirname(modPath)
+modDirPath = os.path.dirname(os.path.abspath(__file__))
+
+ExceptionList = {}
+ExceptionList['s.w.a.t'] = {}
+ExceptionList['s.w.a.t']['name'] = 'S.W.A.T'
+ExceptionList['s.w.a.t']['keepPeriods'] = True
+ExceptionList['the.4400'] = {}
+ExceptionList['the.4400']['name'] = 'The 4400'
+ExceptionList['the.4400']['keepPeriods'] = False
 
 class Parser:
 
@@ -331,9 +338,16 @@ class Parser:
         #digits in their names
         #TODO: Example "The 4400"
         if self.showNameOnly is not None:
-            # This has been called before, simply returned stored value
+            # This has been called before, simply return stored value
             return self.showNameOnly
         else:
+            # if showNameIsAnException is true then the name is complete already
+            # We will use it as is without trying to re-parse the nameself.
+            # This does short circuit the logic so the "if match:" does not
+            # happen
+            if self.showNameIsAnException():
+                self.showNameOnly = self.showName
+                return self.showNameOnly
             # We need to parse, set and return. This function has not previously
             # been called
             pattern = re.compile(regex_name_only, re.IGNORECASE | re.VERBOSE)
@@ -348,33 +362,25 @@ class Parser:
                     #the start of the loop
                     if groupNum == 3: #Skip group(3)
                         continue
-                    if match.group(groupNum) is not None: # This group has a
-                        #match we can use it and break from loop
-
-                        # We can probably handle exceptions here. This presently
-                        # is a hard code fix that needs to be resolved soon
-                        if ((groupNum == 5) and (match.group(groupNum +1) ==
-                            '4400')):
-                            print("GroupNum:" + str(groupNum) + "\n")
-                            self.showNameOnly = "{0}.{1}".format(
-                                match.group(groupNum),match.group(groupNum + 1)
-                            )
-                        else:
-                            self.showNameOnly = match.group(groupNum)
+                    if match.group(groupNum) is not None:
+                        # This group has a match we can use it and break
+                        # from loop
+                        self.showNameOnly = match.group(groupNum)
                         break
-                print("ShowNameOnly: " + self.showNameOnly)
                 return self.showNameOnly
             else:
                 self.showNameOnly = ""
                 return ""
 
-    # TODO Need to consider if I want to move this to a separate module
-    # The idea being that we might wish to have a program for adding
-    # exceptions. May wish to consider a dict format for storing the data.
     def loadExceptionList(self):
         '''
+            # TODO Need to consider if I want to move this to a separate module
+            # The idea being that we might wish to have a program for adding
+            # exceptions. May wish to consider a dict format for storing the data.
+
             This method loads a list of show names which are exceptions that
             need be handled differently. Examples S.W.A.T and The 4400
+            # TODO: Yet to be implemented
 
         '''
         pass
@@ -382,12 +388,76 @@ class Parser:
     def writeExceptionList(self):
         '''
             This method write the contents of the exception list to file
-
+            # TODO: Yet to be implemented
         '''
         pass
 
     def appendShowNameException(self):
         '''
             This method appends a new show name exception to the ExceptionList
+            # TODO: Yet to be implemented
         '''
         pass
+
+    def showNameIsAnException(self):
+        '''
+            Using nested Dictionaries. This checks that there is an initial
+            Key in the ExceptionList
+
+            rtype: True or False
+        '''
+        if self.showName.lower() in ExceptionList:
+            return True
+        else:
+            return False
+
+    def _showNameKeepsPeriods(self):
+        '''
+            Internal method to check if the show name should keep its periods
+            Example S.W.A.T
+            rtype True or False
+        '''
+        return ExceptionList.get(
+            self.getShowNameOnly().lower(),{}).get('keepPeriods',False)
+
+    def _getShowNameFromExceptionList(self):
+        '''
+            Internal method this returns the value from key: name or None if
+            if key is not found
+
+            rtype: None or Str
+        '''
+        return ExceptionList.get(
+            self.getShowName().lower(),{}).get('name',None)
+
+    def _showNameisAnException(self):
+        '''
+            Internal method to check if show name is in our ExceptionList
+            rtype True or False
+        '''
+        if self.getShowNameOnly().lower() in ExceptionList:
+            return True
+        else:
+            return False
+
+    def getCleanShowName(self):
+        '''
+            This method will return a clean show name without periods
+            the.4400 -> the 4400
+            Using an internal ExceptionList however periods will not be removed
+            for show names like s.w.a.t
+
+            rtype: Str
+        '''
+        # Check if in exceptionList and if has name key, return name else ...
+        if self._showNameisAnException() and \
+            self._getShowNameFromExceptionList() is not None:
+                return self._getShowNameFromExceptionList()
+        # Check if key exists and if keepPeriods is True or False
+        # if keepPeriods is True just return showNameOnly
+        elif self._showNameisAnException() and self._showNameKeepsPeriods():
+            return self.getShowNameOnly()
+        # keepPeriods is False so we want to remove any periods in the
+        # showNameOnly()
+        else:
+            return self.getShowNameOnly().replace('.',' ')
