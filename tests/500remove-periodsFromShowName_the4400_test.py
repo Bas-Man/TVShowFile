@@ -7,7 +7,7 @@ class TVShowFileParserTests(unittest.TestCase):
         self.filename = parser.Parser("the.4400.s01E01.1080p.avi")
 
     def testgetCleanShowName(self):
-        self.assertEqual(self.filename.getCleanShowName(), "the 4400")
-        
+        self.assertEqual(self.filename.getCleanShowName(), "The 4400")
+
 if __name__ == '__main__':
     unittest.main()
