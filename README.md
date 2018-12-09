@@ -1,12 +1,14 @@
 # TVShowFile
 Python 3 OOP TV Show Rip filename parser
 
-I have not been able to find an independent module for parsing filename in
- Python.
+After a lot of searching I have found some python programs which can parse and
+check TV show Names and Series/Episodes and check against TVDB.
 
-All examples that I was able to find appear to be tied to a project that goes
-beyond parsing the filename and moves into TVDB
-queries or filename renaming.
+All examples however do not appear easy to use to build additional functionality
+into other programs.
 
-This is project is to give some functionality as found in the Perl module
-Video::Filename
+This is project is to give similar functionality as found in the Perl module
+Video::Filename which does not do anything more than parse and extract required
+information which can then be used within another program.
+
+I hope this might be found to be of use to others in the future.
