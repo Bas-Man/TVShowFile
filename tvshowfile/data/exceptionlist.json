@@ -1,0 +1,10 @@
+{
+    "s.w.a.t": {
+        "name": "S.W.A.T",
+        "keepPeriods": true
+    },
+    "the.4400": {
+        "name": "The 4400",
+        "keepPeriods": false
+    }
+}
