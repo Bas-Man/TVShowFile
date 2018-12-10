@@ -3,18 +3,22 @@ import re
 import datetime
 
 from .patterns import regex_SXEX, regex_name_only, regex_YEAR, regex_resolution
+from .exceptman import ExceptionListManager
 
 # This may be used to store exception show names in the module directory
 # This will help keep things clean.
 modDirPath = os.path.dirname(os.path.abspath(__file__))
 
-ExceptionList = {}
-ExceptionList['s.w.a.t'] = {}
-ExceptionList['s.w.a.t']['name'] = 'S.W.A.T'
-ExceptionList['s.w.a.t']['keepPeriods'] = True
-ExceptionList['the.4400'] = {}
-ExceptionList['the.4400']['name'] = 'The 4400'
-ExceptionList['the.4400']['keepPeriods'] = False
+ExMan = None
+ExceptionList = None
+
+## The Following block of code remains for now. Further testing needed.
+#ExceptionList['s.w.a.t'] = {}
+#ExceptionList['s.w.a.t']['name'] = 'S.W.A.T'
+#ExceptionList['s.w.a.t']['keepPeriods'] = True
+#ExceptionList['the.4400'] = {}
+#ExceptionList['the.4400']['name'] = 'The 4400'
+#ExceptionList['the.4400']['keepPeriods'] = False
 
 class Parser:
 
@@ -70,7 +74,8 @@ class Parser:
         attributes
 
         '''
-
+        global ExMan
+        global ExceptionList
         # Reference code https://github.com/ROldford/tvregex
         # Reference code https://github.com/dbr/tvnamer
         # Reference code https://github.com/ghickman/tvrenamr
@@ -85,6 +90,14 @@ class Parser:
         # https://regex101.com/r/iqxoAB/3 # Name only catches year as name
         # in group(6)
 
+        #Load the ExceptionList data Exman and ExceptionList are Global
+        # This should only need to be loaded once
+        # TODO: Testing needed to confirm this only happens once during
+        # program execution
+        
+        if ExceptionList is None:
+            ExMan = ExceptionListManager()
+            ExceptionList = ExMan.loadExceptionList()
 
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self.filename)
