@@ -1,10 +1,12 @@
 import os
 import json
 
+
 class ExceptionListManager:
     '''
-        This class will load and save the exceptionList. this data will be stored
-        in a directory named 'data' under the tvshowfile module directory
+        This class will load and save the exceptionList. this data will be
+        stored in a directory named 'data' under the tvshowfile module
+        directory
 
     '''
 
@@ -20,7 +22,7 @@ class ExceptionListManager:
 
     def loadExceptionList(self):
 
-        with open(self.path + self.file,'r') as fhandle:
+        with open(self.path + self.file, 'r') as fhandle:
             ExceptList = json.load(fhandle)
 
         return ExceptList

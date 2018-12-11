@@ -9,7 +9,7 @@ from .exceptman import ExceptionListManager
 # This will help keep things clean.
 modDirPath = os.path.dirname(os.path.abspath(__file__))
 
-
+'''
 ## The Following block of code remains for now. Further testing needed.
 #ExceptionList['s.w.a.t'] = {}
 #ExceptionList['s.w.a.t']['name'] = 'S.W.A.T'
@@ -17,12 +17,14 @@ modDirPath = os.path.dirname(os.path.abspath(__file__))
 #ExceptionList['the.4400'] = {}
 #ExceptionList['the.4400']['name'] = 'The 4400'
 #ExceptionList['the.4400']['keepPeriods'] = False
+'''
+
 
 class Parser:
     # Class Attributes
     ExMan = None
     ExceptionList = None
-    
+
     '''
         This object has the responsibility of collecting information from the
         file name of a TV show DVD rip or other digital source
@@ -42,7 +44,7 @@ class Parser:
     '''
 
     # Object Constructor
-    def __init__(self,filename):
+    def __init__(self, filename):
         self.filename = filename
         self.showName = None
         self.showNameOnly = None
@@ -112,7 +114,7 @@ class Parser:
             self.Parsed = False
             return False
 
-    def _patternSXEX(self,match):
+    def _patternSXEX(self, match):
         '''
             This is an internal function and should not need to be called.
             It is called by __init__
@@ -139,7 +141,7 @@ class Parser:
             self.lastEpisode = match.group("lastepisode")
             # Build Season and Mulit Episode String
             self.seasonEpisode = "S{0}E{1}E{2}".format(
-                self.season,self.firstEpisode,self.lastEpisode
+                self.season, self.firstEpisode, self.lastEpisode
                 )
             # Set multiEpisode to True
             self.multiEpisode = True
@@ -147,14 +149,13 @@ class Parser:
         else:
             self.episode = match.group("episode")
             # Build Season and single Episode String
-            self.seasonEpisode = "S{0}E{1}".format(self.season,self.episode)
+            self.seasonEpisode = "S{0}E{1}".format(self.season, self.episode)
         # File contains a Year
         self._patternYear()
         # File contains resolution
         self._getResolution()
 
     def _patternYear(self):
-
         '''
             This method should not need to be called by code it will be called
             by _pattern* internal methods
@@ -166,9 +167,12 @@ class Parser:
         match = pattern.search(self.filename)
 
         if match:
-            # Check that matched year string is between 1920 and the current year
-            # If this is not true, then we have probably matched a show name like "The 4400"
-            if(1920 <= int(match.group("year")) <= datetime.datetime.now().year):
+            # Check that matched year string is between 1920 and the current
+            # year
+            # If this is not true, then we have probably matched a show name
+            # like "The 4400"
+            if(1920 <= int(match.group("year"))
+               <= datetime.datetime.now().year):
                 self.year = match.group("year")
 
     def _getResolution(self):
@@ -178,6 +182,7 @@ class Parser:
             Get video resolution if listed in the file name
             This currently only supports 720p or 1080p
         '''
+
         #TODO: Update pattern to also support SD values. Need to find examples
 
         pattern = re.compile(regex_resolution, re.IGNORECASE | re.VERBOSE)
@@ -197,8 +202,9 @@ class Parser:
 
     def getShowName(self):
         '''
-            Get the string held in showName. This is unprocessed so will contain
-            any characthers like . - or others which separate words in the name
+            Get the string held in showName. This is unprocessed so will
+            contain any characthers like . - or others which separate words in
+            the name
 
             Returns a Str
         '''
@@ -353,10 +359,12 @@ class Parser:
             # This has been called before, simply return stored value
             return self.showNameOnly
         else:
-            # if showNameIsAnException is true then the name is complete already
-            # We will use it as is without trying to re-parse the nameself.
-            # This does short circuit the logic so the "if match:" does not
-            # happen
+            '''
+             if showNameIsAnException is true then the name is complete already
+             We will use it as is without trying to re-parse the nameself.
+             This does short circuit the logic so the "if match:" does not
+             happen
+            '''
             if self.showNameIsAnException():
                 self.showNameOnly = self.showName
                 return self.showNameOnly
@@ -370,9 +378,9 @@ class Parser:
                 #group(6) are of no interest.
                 # So we restrict to 1,2,4,5 skip 3 using a continue statement
                 for groupNum in range(0, len(match.groups()) - 1):
-                    groupNum = groupNum + 1 # skip group(0) by incrementing at
-                    #the start of the loop
-                    if groupNum == 3: #Skip group(3)
+                    groupNum = groupNum + 1  # skip group(0) by incrementing at
+                                             # the start of the loop
+                    if groupNum == 3:  # Skip group(3)
                         continue
                     if match.group(groupNum) is not None:
                         # This group has a match we can use it and break
@@ -388,7 +396,8 @@ class Parser:
         '''
             # TODO Need to consider if I want to move this to a separate module
             # The idea being that we might wish to have a program for adding
-            # exceptions. May wish to consider a dict format for storing the data.
+            # exceptions. May wish to consider a dict format for storing the
+            # data.
 
             This method loads a list of show names which are exceptions that
             need be handled differently. Examples S.W.A.T and The 4400
@@ -430,7 +439,7 @@ class Parser:
             rtype True or False
         '''
         return Parser.ExceptionList.get(
-            self.getShowNameOnly().lower(),{}).get('keepPeriods',False)
+            self.getShowNameOnly().lower(), {}).get('keepPeriods', False)
 
     def _getShowNameFromExceptionList(self):
         '''
@@ -472,4 +481,4 @@ class Parser:
         # keepPeriods is False so we want to remove any periods in the
         # showNameOnly()
         else:
-            return self.getShowNameOnly().replace('.',' ')
+            return self.getShowNameOnly().replace('.', ' ')
