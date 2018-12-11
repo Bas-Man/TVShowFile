@@ -10,9 +10,17 @@ class ExceptionListManager:
 
     '''
 
-    def __init__(self):
-        self.path = os.path.dirname(os.path.abspath(__file__)) + "/data/"
-        self.file = "exceptionlist.json"
+    def __init__(self, path=None, file=None):
+        # TODO: Handle RaisedException FileNotFoundError
+        if path is None:
+            self.path = os.path.dirname(os.path.abspath(__file__)) + "/data/"
+        else:
+            self.path = path
+
+        if file is None:
+            self.file = "exceptionlist.json"
+        else:
+            self.file = file
 
     def getPath(self):
         '''
@@ -31,7 +39,7 @@ class ExceptionListManager:
     def loadExceptionList(self):
         '''
             Load the json ExceptionList data from the json file.
-            rtype: ExceptionList of Dict
+            rtype: ExceptionList, which is a nested Dictionary
         '''
 
         with open(self.path + self.file, 'r') as fhandle:
