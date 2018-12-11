@@ -91,7 +91,7 @@ class Parser:
         # https://regex101.com/r/iqxoAB/3 # Name only catches year as name
         # in group(6)
 
-        #Load the ExceptionList data Exman and ExceptionList are Global
+        # Load the ExceptionList data Exman and ExceptionList are Global
         # This should only need to be loaded once
         # TODO: Testing needed to confirm this only happens once during
         # program execution
@@ -124,12 +124,10 @@ class Parser:
             This method as no return type SEE method 'wasParsed'
         '''
 
-        '''
-            showName, season, and fileExt are expected to match as a minimum
-            EXX and EXXEXX are matched conditionally
-            Year of first Episode and resolution are looked for but not assumed
-            to be present
-        '''
+        # showName, season, and fileExt are expected to match as a minimum
+        # EXX and EXXEXX are matched conditionally
+        # Year of first Episode and resolution are looked for but not assumed
+        # to be present
         self.showName = match.group("showname")
         self.season = match.group("showseason")
         self.fileExt = match.group("fileext")
@@ -183,7 +181,7 @@ class Parser:
             This currently only supports 720p or 1080p
         '''
 
-        #TODO: Update pattern to also support SD values. Need to find examples
+        # TODO: Update pattern to also support SD values. Need to find examples
 
         pattern = re.compile(regex_resolution, re.IGNORECASE | re.VERBOSE)
         match = pattern.search(self.filename)
@@ -352,9 +350,9 @@ class Parser:
 
             Returns a Str
         '''
-        #TODO: This may need to be changed to handle show names that have four
-        #digits in their names
-        #TODO: Example "The 4400"
+        # TODO: This may need to be changed to handle show names that have four
+        # digits in their names
+        # TODO: Example "The 4400"
         if self.showNameOnly is not None:
             # This has been called before, simply return stored value
             return self.showNameOnly
@@ -368,18 +366,18 @@ class Parser:
             if self.showNameIsAnException():
                 self.showNameOnly = self.showName
                 return self.showNameOnly
-            # We need to parse, set and return. This function has not previously
-            # been called
+            # We need to parse, set and return. This function has not
+            # previously been called
             pattern = re.compile(regex_name_only, re.IGNORECASE | re.VERBOSE)
             match = pattern.match(self.filename)
 
             if match:
                 # This pattern contains 6 groups. group(0), group(3) and
-                #group(6) are of no interest.
+                # group(6) are of no interest.
                 # So we restrict to 1,2,4,5 skip 3 using a continue statement
                 for groupNum in range(0, len(match.groups()) - 1):
-                    groupNum = groupNum + 1  # skip group(0) by incrementing at
-                                             # the start of the loop
+                    # skip group(0) by incrementing at the start of the loop
+                    groupNum = groupNum + 1
                     if groupNum == 3:  # Skip group(3)
                         continue
                     if match.group(groupNum) is not None:
@@ -421,7 +419,7 @@ class Parser:
             rtype: None or Str
         '''
         return Parser.ExceptionList.get(
-            self.getShowName().lower(),{}).get('name',None)
+            self.getShowName().lower(), {}).get('name', None)
 
     def _showNameisAnException(self):
         '''
@@ -443,8 +441,7 @@ class Parser:
             rtype: Str
         '''
         # Check if in exceptionList and if has name key, return name else ...
-        if self._showNameisAnException() and \
-            self._getShowNameFromExceptionList() is not None:
+        if self._showNameisAnException() and self._getShowNameFromExceptionList() is not None:
                 return self._getShowNameFromExceptionList()
         # Check if key exists and if keepPeriods is True or False
         # if keepPeriods is True just return showNameOnly
