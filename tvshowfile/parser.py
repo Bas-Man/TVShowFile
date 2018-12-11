@@ -9,8 +9,6 @@ from .exceptman import ExceptionListManager
 # This will help keep things clean.
 modDirPath = os.path.dirname(os.path.abspath(__file__))
 
-ExMan = None
-ExceptionList = None
 
 ## The Following block of code remains for now. Further testing needed.
 #ExceptionList['s.w.a.t'] = {}
@@ -21,7 +19,10 @@ ExceptionList = None
 #ExceptionList['the.4400']['keepPeriods'] = False
 
 class Parser:
-
+    # Class Attributes
+    ExMan = None
+    ExceptionList = None
+    
     '''
         This object has the responsibility of collecting information from the
         file name of a TV show DVD rip or other digital source
@@ -74,8 +75,6 @@ class Parser:
         attributes
 
         '''
-        global ExMan
-        global ExceptionList
         # Reference code https://github.com/ROldford/tvregex
         # Reference code https://github.com/dbr/tvnamer
         # Reference code https://github.com/ghickman/tvrenamr
@@ -94,10 +93,10 @@ class Parser:
         # This should only need to be loaded once
         # TODO: Testing needed to confirm this only happens once during
         # program execution
-        
-        if ExceptionList is None:
-            ExMan = ExceptionListManager()
-            ExceptionList = ExMan.loadExceptionList()
+
+        if Parser.ExceptionList is None:
+            Parser.ExMan = ExceptionListManager()
+            Parser.ExceptionList = Parser.ExMan.loadExceptionList()
 
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self.filename)
@@ -419,7 +418,7 @@ class Parser:
 
             rtype: True or False
         '''
-        if self.showName.lower() in ExceptionList:
+        if self.showName.lower() in Parser.ExceptionList:
             return True
         else:
             return False
@@ -430,7 +429,7 @@ class Parser:
             Example S.W.A.T
             rtype True or False
         '''
-        return ExceptionList.get(
+        return Parser.ExceptionList.get(
             self.getShowNameOnly().lower(),{}).get('keepPeriods',False)
 
     def _getShowNameFromExceptionList(self):
@@ -440,7 +439,7 @@ class Parser:
 
             rtype: None or Str
         '''
-        return ExceptionList.get(
+        return Parser.ExceptionList.get(
             self.getShowName().lower(),{}).get('name',None)
 
     def _showNameisAnException(self):
@@ -448,7 +447,7 @@ class Parser:
             Internal method to check if show name is in our ExceptionList
             rtype True or False
         '''
-        if self.getShowNameOnly().lower() in ExceptionList:
+        if self.getShowNameOnly().lower() in Parser.ExceptionList:
             return True
         else:
             return False
