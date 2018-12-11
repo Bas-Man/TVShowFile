@@ -3,7 +3,6 @@
 # This program demonstraties how one might reconstruct a filename
 import sys
 sys.path.insert(0, "..")
-
 from tvshowfile import parser
 
 test1 = parser.Parser("v.2009.S01E13.the.title.avi")
@@ -12,7 +11,7 @@ test3 = parser.Parser("Castle (2015) S02E12.avi")
 
 # Example 1
 if test1.wasParsed:
-    #Start building to filename
+    # Start building to filename
     newFileName = "{}.({}).{}.{}".format(
         test1.getShowNameOnly(),
         test1.getYear(),
@@ -23,7 +22,7 @@ if test1.wasParsed:
 
 # Example 2
 if test2.wasParsed:
-    #Start building to filename
+    # Start building to filename
     newFileName = "{}.({}).{}.{}".format(
         test2.getShowNameOnly(),
         test2.getYear(),
@@ -34,7 +33,7 @@ if test2.wasParsed:
 
 # Example 3
 if test3.wasParsed:
-    #Start building to filename
+    # Start building to filename
     newFileName = "{}.({}).{}.{}".format(
         test3.getShowNameOnly(),
         test3.getYear(),
