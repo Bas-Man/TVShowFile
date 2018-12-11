@@ -392,34 +392,6 @@ class Parser:
                 self.showNameOnly = ""
                 return ""
 
-    def loadExceptionList(self):
-        '''
-            # TODO Need to consider if I want to move this to a separate module
-            # The idea being that we might wish to have a program for adding
-            # exceptions. May wish to consider a dict format for storing the
-            # data.
-
-            This method loads a list of show names which are exceptions that
-            need be handled differently. Examples S.W.A.T and The 4400
-            # TODO: Yet to be implemented
-
-        '''
-        pass
-
-    def writeExceptionList(self):
-        '''
-            This method write the contents of the exception list to file
-            # TODO: Yet to be implemented
-        '''
-        pass
-
-    def appendShowNameException(self):
-        '''
-            This method appends a new show name exception to the ExceptionList
-            # TODO: Yet to be implemented
-        '''
-        pass
-
     def showNameIsAnException(self):
         '''
             Using nested Dictionaries. This checks that there is an initial
