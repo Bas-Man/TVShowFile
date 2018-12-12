@@ -1,4 +1,5 @@
 import os
+import errno
 import json
 
 
@@ -8,9 +9,14 @@ class ExceptionListManager:
         stored in a directory named 'data' under the tvshowfile module
         directory
 
+        Arguments: Path (str), file (str) or fullPath
+        if no arguments are provided, default values are used.
+        Default path is module/data/
+        Default file is exceptionlist.json
+
     '''
 
-    def __init__(self, path=None, file=None):
+    def __init__(self, path=None, file=None, fullPath=None):
         # TODO: Handle RaisedException FileNotFoundError
         if path is None:
             self.path = os.path.dirname(os.path.abspath(__file__)) + "/data/"
@@ -21,6 +27,20 @@ class ExceptionListManager:
             self.file = "exceptionlist.json"
         else:
             self.file = file
+
+        self.__ValidatePathFile()
+
+    def __ValidatePathFile(self):
+        '''
+        '''
+        if not os.path.exists(self.path):
+            raise OSError(
+                errno.ENOENT, os.strerror(errno.ENOENT), self.path
+            )
+
+        if not os.path.isfile(self.path + self.file):
+            raise OSError(
+                errno.ENOENT, os.strerror(errno.ENOENT), self.file)
 
     def getPath(self):
         '''
@@ -40,9 +60,14 @@ class ExceptionListManager:
         '''
             Load the json ExceptionList data from the json file.
             rtype: ExceptionList, which is a nested Dictionary
+            returns None if loading of file fails
         '''
 
-        with open(self.path + self.file, 'r') as fhandle:
-            ExceptList = json.load(fhandle)
+        try:
+            with open(self.path + self.file, 'r') as fhandle:
+                ExceptList = json.load(fhandle)
+        except OSError:
+            print("Unable to open file.")
+            return None
 
         return ExceptList
