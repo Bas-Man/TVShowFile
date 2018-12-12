@@ -71,3 +71,13 @@ class ExceptionListManager:
             return None
 
         return ExceptList
+
+    def saveExceptionList(self):
+        '''
+            This will save the nested dictionary that is the ExceptionList
+            This should be called when if the contents of the dictionary has
+            been changed
+            rtype: Success or Failure value?
+            # TODO: NotImplemented
+        '''
+        pass
