@@ -4,10 +4,6 @@ from context import exceptman
 
 class ExceptmanTests(unittest.TestCase):
 
-    def setUp(self):
-        self.handle = exceptman.ExceptionListManager()
-        self.handle.path = "/tm"
-
     def testValidatePathFile(self):
 
         with self.assertRaises(OSError) as cm:
