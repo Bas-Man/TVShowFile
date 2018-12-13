@@ -79,5 +79,6 @@ class ExceptionListManager:
             been changed
             rtype: Success or Failure value?
             # TODO: NotImplemented
+            # IDEA: If FileNotFoundError Change directory to /tmp
         '''
         pass
