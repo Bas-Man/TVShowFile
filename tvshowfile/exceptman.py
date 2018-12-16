@@ -17,44 +17,67 @@ class ExceptionListManager:
     '''
 
     def __init__(self, path=None, file=None, fullPath=None):
-        # TODO: Handle RaisedException FileNotFoundError
+
         if path is None:
-            self.path = os.path.dirname(os.path.abspath(__file__)) + "/data/"
+            self._path = os.path.dirname(os.path.abspath(__file__)) + "/data/"
         else:
-            self.path = path
+            self._path = path
 
         if file is None:
-            self.file = "exceptionlist.json"
+            self._file = "exceptionlist.json"
         else:
-            self.file = file
+            self._file = file
 
         self.__ValidatePathFile()
 
     def __ValidatePathFile(self):
         '''
+            Check that the directory structure and file are valid for loading
+            If either are not valid raise and OSError
         '''
-        if not os.path.exists(self.path):
+        if not os.path.exists(self._path):
             raise OSError(
-                errno.ENOENT, os.strerror(errno.ENOENT), self.path
+                errno.ENOENT, os.strerror(errno.ENOENT), self._path
             )
 
-        if not os.path.isfile(self.path + self.file):
+        if not os.path.isfile(self._path + self._file):
             raise OSError(
-                errno.ENOENT, os.strerror(errno.ENOENT), self.file)
+                errno.ENOENT, os.strerror(errno.ENOENT), self._file)
 
-    def getPath(self):
+    @property
+    def path(self):
         '''
             Return the path to data directory.
             rtype: Str
         '''
-        return self.path
+        return self._path
 
-    def getFileName(self):
+    @path.setter
+    def path(self, path):
+        '''
+            Set the path if it not the default. If the path is not valid or
+            the user does not have write access the default location is used
+
+        '''
+        if os.path.exists(path):
+            if os.access(path, os.W_OK):
+                self._path = path
+            else:
+                print("You do not have write permissions to this location.")
+        else:
+            print("This is not a valid directory path.")
+
+    @property
+    def file(self):
         '''
             Return the name of the data file.
             rtype: Str
         '''
-        return self.file
+        return self._file
+
+    @file.setter
+    def file(self, file):
+        self._file = file
 
     def loadExceptionList(self):
         '''
@@ -64,7 +87,7 @@ class ExceptionListManager:
         '''
 
         try:
-            with open(self.path + self.file, 'r') as fhandle:
+            with open(self._path + self._file, 'r') as fhandle:
                 ExceptList = json.load(fhandle)
         except OSError:
             print("Unable to open file.")
