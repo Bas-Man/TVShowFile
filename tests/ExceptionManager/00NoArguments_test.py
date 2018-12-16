@@ -16,7 +16,6 @@ class ExceptmanTests(unittest.TestCase):
         self.expected['the.4400']['name'] = 'The 4400'
         self.expected['the.4400']['keepPeriods'] = False
 
-
     def testObjVariblesDefaultandLoads(self):
         self.assertDictEqual(self.list, self.expected)
 
