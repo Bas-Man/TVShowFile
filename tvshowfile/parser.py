@@ -9,16 +9,6 @@ from .exceptman import ExceptionListManager
 # This will help keep things clean.
 modDirPath = os.path.dirname(os.path.abspath(__file__))
 
-'''
-## The Following block of code remains for now. Further testing needed.
-#ExceptionList['s.w.a.t'] = {}
-#ExceptionList['s.w.a.t']['name'] = 'S.W.A.T'
-#ExceptionList['s.w.a.t']['keepPeriods'] = True
-#ExceptionList['the.4400'] = {}
-#ExceptionList['the.4400']['name'] = 'The 4400'
-#ExceptionList['the.4400']['keepPeriods'] = False
-'''
-
 
 class Parser:
     # Class Attributes
