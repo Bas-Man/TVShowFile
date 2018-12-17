@@ -13,7 +13,7 @@ test3 = parser.Parser("Castle (2015) S02E12.avi")
 if test1.wasParsed:
     # Start building to filename
     newFileName = "{}.({}).{}.{}".format(
-        test1.getShowNameOnly(),
+        test1.getShowNameOnly().capitalize(),
         test1.getYear(),
         test1.getSeasonEpisode(),
         test1.getFileExt()
