@@ -111,8 +111,6 @@ class ExceptionListManager:
             This should be called when if the contents of the dictionary has
             been changed
             rtype: Success or Failure value?
-            # TODO: NotImplemented
-            # IDEA: If FileNotFoundError Change directory to /tmp
         '''
         if MyExceptList is None:
             return False
@@ -120,5 +118,16 @@ class ExceptionListManager:
         if not self._updated:  # No changes made. Do not save.
             return True
         else:
-            with open(self.fullpath, 'w') as fhandle:
-                json.dump(MyExceptList, fhandle, indent=4, sort_keys=True)
+            try:
+                with open(self.fullpath, 'w') as fhandle:
+                    json.dump(MyExceptList, fhandle, indent=4, sort_keys=True)
+
+            except FileNotFoundError as myErr:
+                self.path = "/tmp"
+                print(myErr)
+                print("Unable to write file.")
+                print("File: {} has been written to /tmp.".format(self.file))
+                with open(self.pullpath, 'w') as fhandle:
+                    json.dump(MyExceptList, fhandle, indent=4, sort_keys=True)
+
+            return True
