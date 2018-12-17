@@ -18,6 +18,8 @@ class ExceptionListManager:
 
     def __init__(self, path=None, file=None, fullPath=None):
 
+        self._updated = False
+
         if path is None:
             self._path = os.path.dirname(os.path.abspath(__file__)) + "/data/"
         else:
@@ -43,6 +45,10 @@ class ExceptionListManager:
         if not os.path.isfile(self._path + self._file):
             raise OSError(
                 errno.ENOENT, os.strerror(errno.ENOENT), self._file)
+
+    @property
+    def fullpath(self):
+        return self._path + self._file
 
     @property
     def path(self):
@@ -79,6 +85,10 @@ class ExceptionListManager:
     def file(self, file):
         self._file = file
 
+    @property
+    def updated(self):
+        return self._updated
+
     def loadExceptionList(self):
         '''
             Load the json ExceptionList data from the json file.
@@ -95,13 +105,29 @@ class ExceptionListManager:
 
         return ExceptList
 
-    def saveExceptionList(self):
+    def saveExceptionList(self, MyExceptList=None):
         '''
             This will save the nested dictionary that is the ExceptionList
             This should be called when if the contents of the dictionary has
             been changed
             rtype: Success or Failure value?
-            # TODO: NotImplemented
-            # IDEA: If FileNotFoundError Change directory to /tmp
         '''
-        pass
+        if MyExceptList is None:
+            return False
+
+        if not self._updated:  # No changes made. Do not save.
+            return True
+        else:
+            try:
+                with open(self.fullpath, 'w') as fhandle:
+                    json.dump(MyExceptList, fhandle, indent=4, sort_keys=True)
+
+            except FileNotFoundError as myErr:
+                self.path = "/tmp"
+                print(myErr)
+                print("Unable to write file.")
+                print("File: {} has been written to /tmp.".format(self.file))
+                with open(self.pullpath, 'w') as fhandle:
+                    json.dump(MyExceptList, fhandle, indent=4, sort_keys=True)
+
+            return True
