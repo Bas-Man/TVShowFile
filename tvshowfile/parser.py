@@ -39,9 +39,9 @@ class Parser:
         self.showName = None
         self.showNameOnly = None
         self.year = None
-        self.season = None
+        self._season = None
         self.episode = None
-        self.seasonEpisode = None
+        self._seasonEpisode = None
         self.firstEpisode = None
         self.lastEpisode = None
         self.resolution = None
@@ -119,7 +119,7 @@ class Parser:
         # Year of first Episode and resolution are looked for but not assumed
         # to be present
         self.showName = match.group("showname")
-        self.season = match.group("showseason")
+        self._season = match.group("showseason")
         self.fileExt = match.group("fileext")
 
         # Optional Values
@@ -128,8 +128,8 @@ class Parser:
             self.firstEpisode = match.group("firstepisode")
             self.lastEpisode = match.group("lastepisode")
             # Build Season and Mulit Episode String
-            self.seasonEpisode = "S{0}E{1}E{2}".format(
-                self.season, self.firstEpisode, self.lastEpisode
+            self._seasonEpisode = "S{0}E{1}E{2}".format(
+                self._season, self.firstEpisode, self.lastEpisode
                 )
             # Set multiEpisode to True
             self.multiEpisode = True
@@ -137,7 +137,7 @@ class Parser:
         else:
             self.episode = match.group("episode")
             # Build Season and single Episode String
-            self.seasonEpisode = "S{0}E{1}".format(self.season, self.episode)
+            self._seasonEpisode = "S{0}E{1}".format(self._season, self.episode)
         # File contains a Year
         self._patternYear()
         # File contains resolution
@@ -198,14 +198,15 @@ class Parser:
         '''
         return self.showName
 
-    def getSeason(self):
+    @property
+    def season(self):
         '''
             Get the string held in Season.
             This will be a number only without the "S"
 
             Returns a Str
         '''
-        return self.season
+        return self._season
 
     def getEpisode(self):
         '''
@@ -220,14 +221,15 @@ class Parser:
             return ""
         return self.episode
 
-    def getSeasonEpisode(self):
+    @property
+    def seasonepisode(self):
         '''
             Get the string held in seasonEpisode This will be in the form of
             SXXEXX or SXXEXXEXX
 
             Returns a Str
         '''
-        return self.seasonEpisode
+        return self._seasonEpisode
 
     def getFileExt(self):
         '''

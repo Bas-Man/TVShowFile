@@ -1,6 +1,7 @@
 import unittest
 from context import parser
 
+
 class TVShowFileParserTests(unittest.TestCase):
 
     def setUp(self):
@@ -13,7 +14,7 @@ class TVShowFileParserTests(unittest.TestCase):
         self.assertEqual(self.filename.showName,"test.(2018)")
         self.assertEqual(self.filename.season, "01")
         self.assertEqual(self.filename.episode,"01")
-        self.assertEqual(self.filename.seasonEpisode, "S01E01")
+        self.assertEqual(self.filename.seasonepisode, "S01E01")
         self.assertEqual(self.filename.fileExt,"avi")
         self.assertIsNone(self.filename.firstEpisode)
         self.assertIsNone(self.filename.lastEpisode)
@@ -22,9 +23,9 @@ class TVShowFileParserTests(unittest.TestCase):
         self.assertTrue(self.filename.wasParsed)
         print("\nFile: " + self.filename.getFilename())
         print("Name: " + self.filename.getShowName())
-        print("Season: " + self.filename.getSeason())
+        print("Season: " + self.filename.season)
         print("Episode: " + self.filename.getEpisode())
-        print("SeasonEpisode: " + self.filename.getSeasonEpisode())
+        print("SeasonEpisode: " + self.filename.seasonepisode)
         print("Resolution: " + self.filename.getResolution())
         print("Ext: " + self.filename.getFileExt())
         if self.filename.wasParsed():

@@ -15,7 +15,7 @@ if test1.wasParsed:
     newFileName = "{}.({}).{}.{}".format(
         test1.getShowNameOnly().capitalize(),
         test1.getYear(),
-        test1.getSeasonEpisode(),
+        test1.seasonepisode,
         test1.getFileExt()
     )
     print("Old File: " + test1.filename + "; New File: " + newFileName)
@@ -26,7 +26,7 @@ if test2.wasParsed:
     newFileName = "{}.({}).{}.{}".format(
         test2.getShowNameOnly(),
         test2.getYear(),
-        test2.getSeasonEpisode(),
+        test2.seasonepisode,
         test2.getFileExt()
     )
     print("Old File: " + test2.filename + "; New File: " + newFileName)
@@ -37,7 +37,7 @@ if test3.wasParsed:
     newFileName = "{}.({}).{}.{}".format(
         test3.getShowNameOnly(),
         test3.getYear(),
-        test3.getSeasonEpisode(),
+        test3.seasonepisode,
         test3.getFileExt()
     )
     print("Old File: " + test3.filename + "; New File: " + newFileName)

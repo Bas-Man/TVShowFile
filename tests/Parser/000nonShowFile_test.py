@@ -11,9 +11,9 @@ class TVShowFileParserTests(unittest.TestCase):
 
     def testObjVariblesNone(self):
         self.assertIsNone(self.filename.showName)
-        self.assertIsNone(self.filename.season)
+        self.assertIsNone(self.filename._season)
         self.assertIsNone(self.filename.episode)
-        self.assertIsNone(self.filename.seasonEpisode)
+        self.assertIsNone(self.filename.seasonepisode)
         self.assertIsNone(self.filename.fileExt)
         self.assertIsNone(self.filename.resolution)
 
