@@ -15,7 +15,7 @@ class TVShowFileParserTests(unittest.TestCase):
         self.assertEqual(self.filename._season, "01")
         self.assertEqual(self.filename.episode, "01")
         self.assertEqual(self.filename.seasonepisode, "S01E01")
-        self.assertEqual(self.filename.fileExt, "avi")
+        self.assertEqual(self.filename._fileExt, "avi")
         self.assertIsNone(self.filename.firstEpisode)
         self.assertIsNone(self.filename.lastEpisode)
         self.assertEqual(self.filename.year, '2018')
@@ -27,7 +27,7 @@ class TVShowFileParserTests(unittest.TestCase):
         print("Episode: " + self.filename.getEpisode())
         print("SeasonEpisode: " + self.filename.seasonepisode)
         print("Resolution: " + self.filename.getResolution())
-        print("Ext: " + self.filename.getFileExt())
+        print("Ext: " + self.filename.fileext)
         if self.filename.wasParsed():
             print("wasParsed is True")
 

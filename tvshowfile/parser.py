@@ -45,7 +45,7 @@ class Parser:
         self.firstEpisode = None
         self.lastEpisode = None
         self.resolution = None
-        self.fileExt = None
+        self._fileExt = None
         self.multiEpisode = False
         self.Parsed = False
 
@@ -120,7 +120,7 @@ class Parser:
         # to be present
         self.showName = match.group("showname")
         self._season = match.group("showseason")
-        self.fileExt = match.group("fileext")
+        self._fileExt = match.group("fileext")
 
         # Optional Values
         # Multi Episode file
@@ -231,11 +231,12 @@ class Parser:
         '''
         return self._seasonEpisode
 
-    def getFileExt(self):
+    @property
+    def fileext(self):
         '''
             Get the string held in fileExt should be avi mp3 srt or such
         '''
-        return self.fileExt
+        return self._fileExt
 
     def getFirstEpisode(self):
         '''

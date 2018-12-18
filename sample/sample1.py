@@ -22,7 +22,7 @@ if succ.wasParsed:
     print("Episode: " + succ.getEpisode())
     print("SeasonEpisode: " + succ.seasonepisode)
     print("Resolution: " + succ.getResolution())
-    print("Ext: " + succ.getFileExt())
+    print("Ext: " + succ.fileext)
 
 print("\n\n")
 
@@ -35,4 +35,4 @@ if succ2.wasParsed:
     print("Episode: " + succ2.getEpisode())
     print("SeasonEpisode: " + succ2.seasonepisode)
     print("Resolution: " + succ2.getResolution())
-    print("Ext: " + succ2.getFileExt())
+    print("Ext: " + succ2.fileext)

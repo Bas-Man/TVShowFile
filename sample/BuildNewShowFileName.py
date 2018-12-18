@@ -16,7 +16,7 @@ if test1.wasParsed:
         test1.getShowNameOnly().capitalize(),
         test1.getYear(),
         test1.seasonepisode,
-        test1.getFileExt()
+        test1.fileext
     )
     print("Old File: " + test1.filename + "; New File: " + newFileName)
 
@@ -27,7 +27,7 @@ if test2.wasParsed:
         test2.getShowNameOnly(),
         test2.getYear(),
         test2.seasonepisode,
-        test2.getFileExt()
+        test2.fileext
     )
     print("Old File: " + test2.filename + "; New File: " + newFileName)
 
@@ -38,6 +38,6 @@ if test3.wasParsed:
         test3.getShowNameOnly(),
         test3.getYear(),
         test3.seasonepisode,
-        test3.getFileExt()
+        test3.fileext
     )
     print("Old File: " + test3.filename + "; New File: " + newFileName)
