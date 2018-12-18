@@ -325,7 +325,7 @@ class Parser:
             return True
         return False
 
-    # Return True or False if the file was able to be parsed.
+    @property
     def wasParsed(self):
         '''
             Return True or False if the file was able to be parsed.

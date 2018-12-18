@@ -26,7 +26,7 @@ class TVShowFileParserTests(unittest.TestCase):
         print("Episode: " + self.filename.getEpisode())
         print("SeasonEpisode: " + self.filename.seasonepisode)
         print("Ext: " + self.filename.fileext)
-        if self.filename.wasParsed():
+        if self.filename.wasParsed:
             print("wasParsed is True")
 
 

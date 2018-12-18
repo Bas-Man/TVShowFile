@@ -10,7 +10,7 @@ succ = parser.Parser("test.S01E01.avi")
 succ2 = parser.Parser("test.S01E01.1080p.avi")
 
 # Example 1 testing that file was able to be parsed or not
-if not fail.wasParsed():
+if not fail.wasParsed:
     print("Unable to parse file: " + fail.getFilename())
 
 # Example 1 Successful parsing of file
