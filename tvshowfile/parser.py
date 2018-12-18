@@ -314,7 +314,7 @@ class Parser:
             return True
         return False
 
-    # Check if filename contains a resolution string like 720p
+    @property
     def hasResolution(self):
         '''
             Check if filename contains a resolution string like 720p
