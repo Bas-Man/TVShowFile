@@ -140,3 +140,7 @@ class ExceptionListManager:
             return True
         else:
             return False
+
+    def keepsPeriods(self, key):
+        return self.ExceptList.get(
+            key.lower(), {}).get('keepPeriods', False)

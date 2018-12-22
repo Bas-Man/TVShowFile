@@ -26,6 +26,12 @@ class ExceptmanTests(unittest.TestCase):
     def testObjhasKeyisFalse(self):
         self.assertFalse(self.handle.hasKey('bogus'))
 
+    def testObjkeepsPeriods(self):
+        self.assertTrue(self.handle.keepsPeriods('s.w.a.t'))
+
+    def testObjkeepsPeriodsFalse(self):
+        self.assertFalse(self.handle.keepsPeriods('the.4400'))
+
 
 if __name__ == '__main__':
     unittest.main()
