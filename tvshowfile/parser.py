@@ -35,12 +35,12 @@ class Parser:
 
     # Object Constructor
     def __init__(self, filename):
-        self.filename = filename
-        self.showName = None
+        self._fileName = filename
+        self._showName = None
         self.showNameOnly = None
-        self.year = None
+        self._year = None
         self._season = None
-        self.episode = None
+        self._episode = None
         self._seasonEpisode = None
         self.firstEpisode = None
         self.lastEpisode = None
@@ -91,7 +91,7 @@ class Parser:
             Parser.ExceptionList = Parser.ExMan.loadExceptionList()
 
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
-        match = pattern.match(self.filename)
+        match = pattern.match(self._fileName)
 
         # TODO: This should be changed at some point to support multiple
         # regex patterns
@@ -118,7 +118,7 @@ class Parser:
         # EXX and EXXEXX are matched conditionally
         # Year of first Episode and resolution are looked for but not assumed
         # to be present
-        self.showName = match.group("showname")
+        self._showName = match.group("showname")
         self._season = match.group("showseason")
         self._fileExt = match.group("fileext")
 
@@ -135,9 +135,10 @@ class Parser:
             self.multiEpisode = True
         # Single Episode file
         else:
-            self.episode = match.group("episode")
+            self._episode = match.group("episode")
             # Build Season and single Episode String
-            self._seasonEpisode = "S{0}E{1}".format(self._season, self.episode)
+            self._seasonEpisode = "S{0}E{1}".format(self._season,
+                                                    self._episode)
         # File contains a Year
         self._patternYear()
         # File contains resolution
@@ -152,7 +153,7 @@ class Parser:
         '''
 
         pattern = re.compile(regex_YEAR, re.IGNORECASE | re.VERBOSE)
-        match = pattern.search(self.filename)
+        match = pattern.search(self._fileName)
 
         if match:
             # Check that matched year string is between 1920 and the current
@@ -161,7 +162,7 @@ class Parser:
             # like "The 4400"
             if(1920 <= int(match.group("year"))
                <= datetime.datetime.now().year):
-                self.year = match.group("year")
+                self._year = match.group("year")
 
     def _getResolution(self):
         '''
@@ -174,21 +175,23 @@ class Parser:
         # TODO: Update pattern to also support SD values. Need to find examples
 
         pattern = re.compile(regex_resolution, re.IGNORECASE | re.VERBOSE)
-        match = pattern.search(self.filename)
+        match = pattern.search(self._fileName)
 
         if match:
             self.resolution = match.group("resolution")
 
-    def getFilename(self):
+    @property
+    def fileName(self):
         '''
             Get the string held in filename. The full name of the file being
             processed
 
             Returns a Str
         '''
-        return self.filename
+        return self._fileName
 
-    def getShowName(self):
+    @property
+    def showName(self):
         '''
             Get the string held in showName. This is unprocessed so will
             contain any characthers like . - or others which separate words in
@@ -196,7 +199,7 @@ class Parser:
 
             Returns a Str
         '''
-        return self.showName
+        return self._showName
 
     @property
     def season(self):
@@ -208,7 +211,8 @@ class Parser:
         '''
         return self._season
 
-    def getEpisode(self):
+    @property
+    def episode(self):
         '''
             Get the string held in episode. This will be empty if
             isMultiEpisode is True. This will be a number only without the "E"
@@ -217,12 +221,12 @@ class Parser:
         '''
         # If this is True then episode will still be None.
         # We should return an empty string
-        if self.isMultiEpisode():
+        if self.isMultiEpisode:
             return ""
-        return self.episode
+        return self._episode
 
     @property
-    def seasonepisode(self):
+    def seasonEpisode(self):
         '''
             Get the string held in seasonEpisode This will be in the form of
             SXXEXX or SXXEXXEXX
@@ -232,7 +236,7 @@ class Parser:
         return self._seasonEpisode
 
     @property
-    def fileext(self):
+    def fileExt(self):
         '''
             Get the string held in fileExt should be avi mp3 srt or such
         '''
@@ -266,14 +270,15 @@ class Parser:
         else:
             return ""
 
-    def getYear(self):
+    @property
+    def year(self):
         '''
             Get the string held in attribute year
             Returns a Str. This will be "" if there is no year was found in the
             filename
         '''
-        if self.year is not None:
-            return self.year
+        if self._year is not None:
+            return self._year
         else:
             return ""
 
@@ -290,16 +295,18 @@ class Parser:
         else:
             return ""
 
+    @property
     def hasYear(self):
         '''
             Check that Filename had a Year used before calling getYear
 
             Returns True or False
         '''
-        if self.year is not None:
+        if self._year is not None:
             return True
         return False
 
+    @property
     def isMultiEpisode(self):
         '''
             Check if the file contains more than one episode.
@@ -357,12 +364,12 @@ class Parser:
              happen
             '''
             if self.showNameIsAnException():
-                self.showNameOnly = self.showName
+                self.showNameOnly = self._showName
                 return self.showNameOnly
             # We need to parse, set and return. This function has not
             # previously been called
             pattern = re.compile(regex_name_only, re.IGNORECASE | re.VERBOSE)
-            match = pattern.match(self.filename)
+            match = pattern.match(self._fileName)
 
             if match:
                 # This pattern contains 6 groups. group(0), group(3) and
@@ -390,7 +397,7 @@ class Parser:
 
             rtype: True or False
         '''
-        if self.showName.lower() in Parser.ExceptionList:
+        if self._showName.lower() in Parser.ExceptionList:
             return True
         else:
             return False
@@ -412,7 +419,7 @@ class Parser:
             rtype: None or Str
         '''
         return Parser.ExceptionList.get(
-            self.getShowName().lower(), {}).get('name', None)
+            self.showName.lower(), {}).get('name', None)
 
     def _showNameisAnException(self):
         '''

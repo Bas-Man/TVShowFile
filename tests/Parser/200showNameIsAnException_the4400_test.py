@@ -1,6 +1,7 @@
 import unittest
 from context import parser
 
+
 class TVShowFileParserTests(unittest.TestCase):
 
     def setUp(self):
@@ -14,6 +15,7 @@ class TVShowFileParserTests(unittest.TestCase):
 
     def testisInExceptionList(self):
         self.assertTrue(self.filename.showNameIsAnException())
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,6 +1,7 @@
 import unittest
 from context import parser
 
+
 class TVShowFileParserTests(unittest.TestCase):
 
     def setUp(self):
@@ -8,6 +9,7 @@ class TVShowFileParserTests(unittest.TestCase):
 
     def testgetCleanShowName(self):
         self.assertEqual(self.filename.getCleanShowName(), "The 4400")
+
 
 if __name__ == '__main__':
     unittest.main()
