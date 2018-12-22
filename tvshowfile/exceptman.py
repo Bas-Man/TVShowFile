@@ -144,3 +144,7 @@ class ExceptionListManager:
     def keepsPeriods(self, key):
         return self.ExceptList.get(
             key.lower(), {}).get('keepPeriods', False)
+
+    def getShowNameByKey(self, key):
+        return self.ExceptList.get(
+                    key.lower(), {}).get('name', None)
