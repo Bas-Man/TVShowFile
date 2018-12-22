@@ -419,7 +419,7 @@ class Parser:
             rtype: None or Str
         '''
         return Parser.ExceptionList.get(
-            self.showName.lower(), {}).get('name', None)
+                    self.showName.lower(), {}).get('name', None)
 
     def _showNameisAnException(self):
         '''
