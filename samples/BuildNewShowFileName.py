@@ -14,30 +14,30 @@ if test1.wasParsed:
     # Start building to filename
     newFileName = "{}.({}).{}.{}".format(
         test1.getShowNameOnly().capitalize(),
-        test1.getYear(),
-        test1.seasonepisode,
-        test1.fileext
+        test1.year,
+        test1.seasonEpisode,
+        test1.fileExt
     )
-    print("Old File: " + test1.filename + "; New File: " + newFileName)
+    print("Old File: " + test1.fileName + "; New File: " + newFileName)
 
 # Example 2
 if test2.wasParsed:
     # Start building to filename
     newFileName = "{}.({}).{}.{}".format(
         test2.getShowNameOnly(),
-        test2.getYear(),
-        test2.seasonepisode,
-        test2.fileext
+        test2.year,
+        test2.seasonEpisode,
+        test2.fileExt
     )
-    print("Old File: " + test2.filename + "; New File: " + newFileName)
+    print("Old File: " + test2.fileName + "; New File: " + newFileName)
 
 # Example 3
 if test3.wasParsed:
     # Start building to filename
     newFileName = "{}.({}).{}.{}".format(
         test3.getShowNameOnly(),
-        test3.getYear(),
-        test3.seasonepisode,
-        test3.fileext
+        test3.year,
+        test3.seasonEpisode,
+        test3.fileExt
     )
-    print("Old File: " + test3.filename + "; New File: " + newFileName)
+    print("Old File: " + test3.fileName + "; New File: " + newFileName)
