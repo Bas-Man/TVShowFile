@@ -409,8 +409,9 @@ class Parser:
             Example S.W.A.T
             rtype True or False
         '''
-        return Parser.ExceptionList.get(
-            self.getShowNameOnly().lower(), {}).get('keepPeriods', False)
+        # return Parser.ExceptionList.get(
+        #    self.getShowNameOnly().lower(), {}).get('keepPeriods', False)
+        return Parser.ExMan.keepsPeriods(self.getShowNameOnly())
 
     def _getShowNameFromExceptionList(self):
         '''
