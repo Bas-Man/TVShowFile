@@ -98,12 +98,12 @@ class ExceptionListManager:
 
         try:
             with open(self._path + self._file, 'r') as fhandle:
-                ExceptList = json.load(fhandle)
+                self.ExceptList = json.load(fhandle)
         except OSError:
             print("Unable to open file.")
             return None
 
-        return ExceptList
+        return self.ExceptList
 
     def saveExceptionList(self, MyExceptList=None):
         '''
@@ -131,3 +131,6 @@ class ExceptionListManager:
                     json.dump(MyExceptList, fhandle, indent=4, sort_keys=True)
 
             return True
+
+    def hasKey(self, key):
+        pass
