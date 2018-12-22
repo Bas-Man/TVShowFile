@@ -12,3 +12,6 @@ Video::Filename which does not do anything more than parse and extract required
 information which can then be used within another program.
 
 I hope this might be found to be of use to others in the future.
+
+
+TODO: Support show names that use dates for sorting episodes.
