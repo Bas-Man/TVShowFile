@@ -398,7 +398,7 @@ class Parser:
 
             rtype: True or False
         '''
-        if self._showName.lower() in Parser.ExceptionList:
+        if Parser.ExMan.hasKey(self._showName.lower()):
             return True
         else:
             return False
@@ -409,8 +409,6 @@ class Parser:
             Example S.W.A.T
             rtype True or False
         '''
-        # return Parser.ExceptionList.get(
-        #    self.getShowNameOnly().lower(), {}).get('keepPeriods', False)
         return Parser.ExMan.keepsPeriods(self.getShowNameOnly())
 
     def _getShowNameFromExceptionList(self):
@@ -420,18 +418,14 @@ class Parser:
 
             rtype: None or Str
         '''
-        return Parser.ExceptionList.get(
-                    self.showName.lower(), {}).get('name', None)
+        return Parser.ExMan.getShowNameByKey(self.showName)
 
     def _showNameisAnException(self):
         '''
             Internal method to check if show name is in our ExceptionList
             rtype True or False
         '''
-        if self.getShowNameOnly().lower() in Parser.ExceptionList:
-            return True
-        else:
-            return False
+        return Parser.ExMan.hasKey(self.getShowNameOnly())
 
     def getCleanShowName(self):
         '''
