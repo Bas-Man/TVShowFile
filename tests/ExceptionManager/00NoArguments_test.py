@@ -20,6 +20,12 @@ class ExceptmanTests(unittest.TestCase):
     def testObjVariblesDefaultandLoads(self):
         self.assertDictEqual(self.list, self.expected)
 
+    def testObjhasKey(self):
+        self.assertTrue(self.handle.hasKey('s.w.a.t'))
+
+    def testObjhasKeyisFalse(self):
+        self.assertFalse(self.handle.hasKey('bogus'))
+
 
 if __name__ == '__main__':
     unittest.main()

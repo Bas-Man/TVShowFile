@@ -136,4 +136,7 @@ class ExceptionListManager:
         return self.ExceptList
 
     def hasKey(self, key):
-        pass
+        if key.lower() in self.ExceptList:
+            return True
+        else:
+            return False
