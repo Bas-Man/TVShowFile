@@ -88,7 +88,8 @@ class Parser:
 
         if Parser.ExceptionList is None:
             Parser.ExMan = ExceptionListManager()
-            Parser.ExceptionList = Parser.ExMan.loadExceptionList()
+            Parser.ExMan.loadExceptionList()
+            Parser.ExceptionList = Parser.ExMan.exportList()
 
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self._fileName)

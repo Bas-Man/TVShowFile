@@ -7,7 +7,8 @@ class ExceptmanTests(unittest.TestCase):
     def setUp(self):
         self.handle = exceptman.ExceptionListManager()
         # Base data set
-        self.list = self.handle.loadExceptionList()
+        self.handle.loadExceptionList()
+        self.list = self.handle.exportList()
         self.expected = {}
         self.expected['s.w.a.t'] = {}
         self.expected['s.w.a.t']['name'] = 'S.W.A.T'
