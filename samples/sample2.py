@@ -11,6 +11,7 @@ test2 = parser.Parser("S.W.A.T.2018.S02E04.The.Dash.avi")
 test3 = parser.Parser("Castle (2015) S02E12.avi")
 test4 = parser.Parser("Castle.(2015).S02E11.avi")
 test5 = parser.Parser("Doctor Who (2005).S01E01.1080p.mp3")
+test6 = parser.Parser("Castle.(2015).S07E23E24.avi")
 
 # Example 1
 if test1.wasParsed:
@@ -77,3 +78,20 @@ if test5.wasParsed:
     print("SeasonEpisode: " + test5.seasonEpisode)
     print("Resolution: " + test5.getResolution())
     print("Ext: " + test5.fileExt)
+
+# Example 6
+if test6.wasParsed:
+    print("Able to parse file: " + test6.fileName)
+    print("File: " + test6.fileName)
+    print("Name: " + test6.showName)
+    print("Name Only: " + test6.getShowNameOnly())
+    print("Year: " + test6.year)
+    print("Season: " + test6.season)
+    if test6.isMultiEpisode:
+        print("First Episode: " + test6.getFirstEpisode())
+        print("Last Episode: " + test6.getLastEpisode())
+    else:
+        print("Episode: " + test6.episode)
+    print("SeasonEpisode: " + test6.seasonEpisode)
+    print("Resolution: " + test6.getResolution())
+    print("Ext: " + test6.fileExt)
