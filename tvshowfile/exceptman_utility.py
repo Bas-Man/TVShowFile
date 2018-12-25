@@ -33,11 +33,13 @@ def list_commands():
     print("\tQ/q to quit")
     print("\tlist to list all keys and values")
     print("\tkey list values for given key")
+    print("\th to list these commands")
     print("")
 
 
 def main():
     run = True
+    setup()
     list_commands()
     while run:
         command = input("Enter Command: ")
@@ -51,6 +53,9 @@ def main():
         elif command == "key":
             subcommand = input("Enter key: ")
             print_by_key(ExMan, subcommand)
+
+        elif command == "h":
+            list_commands()
 
 
 if __name__ == '__main__':
