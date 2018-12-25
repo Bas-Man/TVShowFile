@@ -16,7 +16,7 @@ class ExceptionListManager:
 
     '''
 
-    def __init__(self, path=None, file=None, fullPath=None):
+    def __init__(self, path=None, file=None):
 
         self._updated = False
 
