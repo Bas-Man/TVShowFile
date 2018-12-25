@@ -6,7 +6,6 @@ def setup():
     global ExMan
     ExMan = exceptman.ExceptionListManager()
     ExMan.loadExceptionList()
-    # return ExMan.exportList()
 
 
 def print_dict(d):
@@ -30,11 +29,30 @@ def print_by_key(d, key):
 
 def list_commands():
     print("Commands List:")
-    print("\tQ/q to quit")
+    print("\tq to quit")
     print("\tlist to list all keys and values")
     print("\tkey list values for given key")
+    print("\tadd to add a new key and values")
     print("\th to list these commands")
     print("")
+
+
+def addKey(d):
+    newKey = input("Enter new key:  ")
+    keepPeriods = input("keepPeriods t or f:  ")
+    name = input("Show Name as you would like it to appear or leave blank:  ")
+
+    if d.hasKey(newKey):
+        print("Key: {} exists. Nothing done.".format(newKey))
+    else:
+        d.ExceptList[newKey] = {}
+        if keepPeriods == 't':
+            d.ExceptList[newKey]['keepPeriods'] = True
+        else:
+            d.ExceptList[newKey]['keepPeriods'] = False
+        if name != '':
+            d.ExceptList[newKey]['name'] = name
+        d._updated = True
 
 
 def main():
@@ -42,9 +60,15 @@ def main():
     setup()
     list_commands()
     while run:
-        command = input("Enter Command: ")
+        command = input("Enter Command:  ")
         if command == 'q':
             run = False
+            if ExMan._updated:
+                dosave = input("Do you want to save your changes?  ")
+                if dosave == 'y':
+                    print("Saving")
+                else:
+                    print("Changes not saved")
             sys.exit()
             break
         elif command == "list":
@@ -57,6 +81,8 @@ def main():
         elif command == "h":
             list_commands()
 
+        elif command == "add":
+            addKey(ExMan)
 
 if __name__ == '__main__':
     main()
