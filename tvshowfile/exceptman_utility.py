@@ -30,17 +30,17 @@ def print_by_key(d, key):
 def list_commands():
     print("Commands List:")
     print("\tq to quit")
-    print("\tlist to list all keys and values")
-    print("\tkey list values for given key")
-    print("\tadd to add a new key and values")
+    print("\tl to list all keys and values")
+    print("\tk list values for given key")
+    print("\ta to add a new key and values")
     print("\th to list these commands")
     print("")
 
 
 def addKey(d):
-    newKey = input("Enter new key:  ")
-    keepPeriods = input("keepPeriods t or f:  ")
-    name = input("Show Name as you would like it to appear or leave blank:  ")
+    newKey = input("Enter new key: ")
+    keepPeriods = input("keepPeriods t or f: ")
+    name = input("Show Name as you would like it to appear or leave blank: ")
 
     if d.hasKey(newKey):
         print("Key: {} exists. Nothing done.".format(newKey))
@@ -60,7 +60,7 @@ def main():
     setup()
     list_commands()
     while run:
-        command = input("Enter Command:  ")
+        command = input("Enter Command: ")
         if command == 'q':
             run = False
             if ExMan._updated:
@@ -83,6 +83,7 @@ def main():
 
         elif command == "add":
             addKey(ExMan)
+
 
 if __name__ == '__main__':
     main()
