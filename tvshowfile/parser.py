@@ -13,7 +13,6 @@ modDirPath = os.path.dirname(os.path.abspath(__file__))
 class Parser:
     # Class Attributes
     ExMan = None
-    ExceptionList = None
 
     '''
         This object has the responsibility of collecting information from the
@@ -86,10 +85,9 @@ class Parser:
         # TODO: Testing needed to confirm this only happens once during
         # program execution
 
-        if Parser.ExceptionList is None:
+        if Parser.ExMan is None:
             Parser.ExMan = ExceptionListManager()
             Parser.ExMan.loadExceptionList()
-            Parser.ExceptionList = Parser.ExMan.exportList()
 
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self._fileName)
