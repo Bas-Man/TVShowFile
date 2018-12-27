@@ -101,9 +101,6 @@ class ExceptionListManager:
                 self.ExceptList = json.load(fhandle)
         except OSError:
             print("Unable to open file.")
-         #   return None
-
-        # return self.ExceptList
 
     def saveExceptionList(self, MyExceptList=None):
         '''
