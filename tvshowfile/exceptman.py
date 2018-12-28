@@ -102,6 +102,8 @@ class ExceptionListManager:
         except OSError:
             print("Unable to open file.")
 
+        # return self.ExceptList
+
     def saveExceptionList(self, MyExceptList=None):
         '''
             This will save the nested dictionary that is the ExceptionList
