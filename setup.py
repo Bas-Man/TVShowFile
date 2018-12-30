@@ -11,7 +11,7 @@ setup(
     author_email='baspann@gmail.com',
     url='https://github.com/Bas-Man/TVShowFile',
     scripts=['sample/BuildNewShowFileName.py', 'sample/sample1.py',
-        'sample/sample2.py'
+        'sample/sample2.py', '/usr/local/man/man1/exmanutil.1'
     ],
     #install_requires=[],
     classifiers=[
