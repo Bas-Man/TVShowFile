@@ -80,6 +80,9 @@ class Parser:
         # https://regex101.com/r/iqxoAB/3 # Name only catches year as name
         # in group(6)
 
+        # Shows by date Patterns
+        # https://regex101.com/r/IHOqXz/1
+
         # Load the ExceptionList data Exman and ExceptionList are Global
         # This should only need to be loaded once
         # TODO: Testing needed to confirm this only happens once during
