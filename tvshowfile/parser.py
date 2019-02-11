@@ -2,7 +2,8 @@ import os
 import re
 import datetime
 
-from .patterns import regex_SXEX, regex_bydate, regex_name_only, regex_YEAR, regex_resolution
+from .patterns import regex_SXEX, regex_bydate, regex_name_only
+from .patterns import regex_YEAR, regex_resolution
 from .exceptman import ExceptionListManager
 
 # This may be used to store exception show names in the module directory
@@ -307,8 +308,8 @@ class Parser:
     def month(self):
         '''
             Get the string held in attribute month
-            Returns a Str. This will be "" if there is no month was found in the
-            filename
+            Returns a Str. This will be "" if there is no month was found in
+            the filename
         '''
         if self._month is not None:
             return self._month
@@ -326,7 +327,6 @@ class Parser:
             return self._date
         else:
             return ""
-
 
     def getResolution(self):
         '''

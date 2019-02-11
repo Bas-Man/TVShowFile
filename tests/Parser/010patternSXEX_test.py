@@ -1,6 +1,7 @@
 import unittest
 from context import parser
 
+
 class TVShowFileParserTests(unittest.TestCase):
 
     def setUp(self):
@@ -30,7 +31,6 @@ class TVShowFileParserTests(unittest.TestCase):
         if self.filename.wasParsed:
             print("wasParsed is True")
 
-
     def testgetShowData(self):
         self.assertTrue(self.filename.getShowData())
 
@@ -40,6 +40,7 @@ class TVShowFileParserTests(unittest.TestCase):
 
     def testisMultiEpisode(self):
         self.assertFalse(self.filename.multiEpisode)
+
 
 if __name__ == '__main__':
     unittest.main()
