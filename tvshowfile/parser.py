@@ -38,6 +38,8 @@ class Parser:
         self._showName = None
         self.showNameOnly = None
         self._year = None
+        self._month = None
+        self._date = None
         self._season = None
         self._episode = None
         self._seasonEpisode = None
@@ -118,6 +120,9 @@ class Parser:
         '''
 
         self._showName = match2.group("showname")
+        self._year = match2.group("year")
+        self._month = match2.group("month")
+        self._date = match2.group("date")
         self._fileExt = match2.group("fileext")
 
     def _patternSXEX(self, match):
@@ -297,6 +302,31 @@ class Parser:
             return self._year
         else:
             return ""
+
+    @property
+    def month(self):
+        '''
+            Get the string held in attribute month
+            Returns a Str. This will be "" if there is no month was found in the
+            filename
+        '''
+        if self._month is not None:
+            return self._month
+        else:
+            return ""
+
+    @property
+    def date(self):
+        '''
+            Get the string held in attribute date
+            Returns a Str. This will be "" if there is no date was found in the
+            filename
+        '''
+        if self._date is not None:
+            return self._date
+        else:
+            return ""
+
 
     def getResolution(self):
         '''
