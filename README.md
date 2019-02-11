@@ -15,3 +15,5 @@ I hope this might be found to be of use to others in the future.
 
 
 TODO: Support show names that use dates for sorting episodes.
+TODO: Rework saving tests. Clearly some gaps in testing after changing
+      the basic style I was using.
