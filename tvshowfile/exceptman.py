@@ -104,22 +104,20 @@ class ExceptionListManager:
 
         # return self.ExceptList
 
-    def saveExceptionList(self, MyExceptList=None):
+    def saveExceptionList(self):
         '''
             This will save the nested dictionary that is the ExceptionList
             This should be called when if the contents of the dictionary has
             been changed
             rtype: Success or Failure value?
         '''
-        if MyExceptList is None:  #
-            MyExceptList = self.exportList()
 
         if not self._updated:  # No changes made. Do not save.
             return True
         else:
             try:
                 with open(self.fullpath, 'w') as fhandle:
-                    json.dump(MyExceptList, fhandle, indent=4, sort_keys=True)
+                    json.dump(self.ExceptList, fhandle, indent=4, sort_keys=True)
 
             except FileNotFoundError as myErr:
                 self.path = "/tmp"
@@ -127,7 +125,7 @@ class ExceptionListManager:
                 print("Unable to write file.")
                 print("File: {} has been written to /tmp.".format(self.file))
                 with open(self.pullpath, 'w') as fhandle:
-                    json.dump(MyExceptList, fhandle, indent=4, sort_keys=True)
+                    json.dump(self.ExceptList, fhandle, indent=4, sort_keys=True)
 
             return True
 
