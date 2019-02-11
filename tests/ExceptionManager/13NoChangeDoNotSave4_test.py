@@ -21,7 +21,7 @@ class ExceptmanTests(unittest.TestCase):
         self.assertDictEqual(self.list, self.expected)
 
     def testExceptListNotSaved(self):
-        self.assertFalse(self.handle.saveExceptionList())
+        self.assertTrue(self.handle.saveExceptionList())
         self.assertFalse(self.handle.updated)
 
 
