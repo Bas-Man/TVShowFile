@@ -2,7 +2,7 @@ import os
 import re
 import datetime
 
-from .patterns import regex_SXEX, regex_name_only, regex_YEAR, regex_resolution
+from .patterns import regex_SXEX, regex_bydate, regex_name_only, regex_YEAR, regex_resolution
 from .exceptman import ExceptionListManager
 
 # This may be used to store exception show names in the module directory
@@ -95,6 +95,9 @@ class Parser:
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self._fileName)
 
+        pattern2 = re.compile(regex_bydate, re.IGNORECASE | re.VERBOSE)
+        match2 = pattern2.match(self._fileName)
+
         # TODO: This should be changed at some point to support multiple
         # regex patterns
 
@@ -102,9 +105,20 @@ class Parser:
             self._patternSXEX(match)
             self.Parsed = True
             return True
+        elif match2:
+            self._patternByDate(match2)
+            self.Parsed = True
+            return True
         else:
             self.Parsed = False
             return False
+
+    def _patternByDate(self, match2):
+        '''
+        '''
+
+        self._showName = match2.group("showname")
+        self._fileExt = match2.group("fileext")
 
     def _patternSXEX(self, match):
         '''
