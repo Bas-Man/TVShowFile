@@ -8,7 +8,6 @@ class ExceptmanTests(unittest.TestCase):
         self.handle = exceptman.ExceptionListManager()
 
     def testExceptListNotSaved(self):
-        self.assertFalse(self.handle.saveExceptionList(), "No List provided.")
         self.assertFalse(self.handle.updated)
 
 
