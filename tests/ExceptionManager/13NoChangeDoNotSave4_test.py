@@ -6,7 +6,8 @@ class ExceptmanTests(unittest.TestCase):
 
     def setUp(self):
         self.handle = exceptman.ExceptionListManager()
-        self.list = self.handle.loadExceptionList()
+        self.handle.loadExceptionList()
+        self.list = self.handle.exportList()
 
         self.expected = {}
         self.expected['s.w.a.t'] = {}
@@ -20,7 +21,7 @@ class ExceptmanTests(unittest.TestCase):
         self.assertDictEqual(self.list, self.expected)
 
     def testExceptListNotSaved(self):
-        self.assertFalse(self.handle.saveExceptionList())
+        self.assertTrue(self.handle.saveExceptionList())
         self.assertFalse(self.handle.updated)
 
 

@@ -16,7 +16,7 @@ class ExceptionListManager:
 
     '''
 
-    def __init__(self, path=None, file=None, fullPath=None):
+    def __init__(self, path=None, file=None):
 
         self._updated = False
 
@@ -98,12 +98,11 @@ class ExceptionListManager:
 
         try:
             with open(self._path + self._file, 'r') as fhandle:
-                ExceptList = json.load(fhandle)
+                self.ExceptList = json.load(fhandle)
         except OSError:
             print("Unable to open file.")
-            return None
 
-        return ExceptList
+        # return self.ExceptList
 
     def saveExceptionList(self, MyExceptList=None):
         '''
@@ -112,8 +111,8 @@ class ExceptionListManager:
             been changed
             rtype: Success or Failure value?
         '''
-        if MyExceptList is None:
-            return False
+        if MyExceptList is None:  #
+            MyExceptList = self.exportList()
 
         if not self._updated:  # No changes made. Do not save.
             return True
@@ -131,3 +130,20 @@ class ExceptionListManager:
                     json.dump(MyExceptList, fhandle, indent=4, sort_keys=True)
 
             return True
+
+    def exportList(self):
+        return self.ExceptList
+
+    def hasKey(self, key):
+        if key.lower() in self.ExceptList:
+            return True
+        else:
+            return False
+
+    def keepsPeriods(self, key):
+        return self.ExceptList.get(
+            key.lower(), {}).get('keepPeriods', False)
+
+    def getShowNameByKey(self, key):
+        return self.ExceptList.get(
+                    key.lower(), {}).get('name', None)

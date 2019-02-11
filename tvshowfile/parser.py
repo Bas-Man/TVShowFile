@@ -13,7 +13,6 @@ modDirPath = os.path.dirname(os.path.abspath(__file__))
 class Parser:
     # Class Attributes
     ExMan = None
-    ExceptionList = None
 
     '''
         This object has the responsibility of collecting information from the
@@ -81,14 +80,17 @@ class Parser:
         # https://regex101.com/r/iqxoAB/3 # Name only catches year as name
         # in group(6)
 
+        # Shows by date Patterns
+        # https://regex101.com/r/IHOqXz/1
+
         # Load the ExceptionList data Exman and ExceptionList are Global
         # This should only need to be loaded once
         # TODO: Testing needed to confirm this only happens once during
         # program execution
 
-        if Parser.ExceptionList is None:
+        if Parser.ExMan is None:
             Parser.ExMan = ExceptionListManager()
-            Parser.ExceptionList = Parser.ExMan.loadExceptionList()
+            Parser.ExMan.loadExceptionList()
 
         pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
         match = pattern.match(self._fileName)
@@ -359,7 +361,7 @@ class Parser:
         else:
             '''
              if showNameIsAnException is true then the name is complete already
-             We will use it as is without trying to re-parse the nameself.
+             We will use it as is without trying to re-parse the name.
              This does short circuit the logic so the "if match:" does not
              happen
             '''
@@ -397,7 +399,7 @@ class Parser:
 
             rtype: True or False
         '''
-        if self._showName.lower() in Parser.ExceptionList:
+        if Parser.ExMan.hasKey(self._showName.lower()):
             return True
         else:
             return False
@@ -408,8 +410,7 @@ class Parser:
             Example S.W.A.T
             rtype True or False
         '''
-        return Parser.ExceptionList.get(
-            self.getShowNameOnly().lower(), {}).get('keepPeriods', False)
+        return Parser.ExMan.keepsPeriods(self.getShowNameOnly())
 
     def _getShowNameFromExceptionList(self):
         '''
@@ -418,18 +419,14 @@ class Parser:
 
             rtype: None or Str
         '''
-        return Parser.ExceptionList.get(
-                    self.showName.lower(), {}).get('name', None)
+        return Parser.ExMan.getShowNameByKey(self.showName)
 
-    def _showNameisAnException(self):
+    def _showNameIsAnException(self):
         '''
             Internal method to check if show name is in our ExceptionList
             rtype True or False
         '''
-        if self.getShowNameOnly().lower() in Parser.ExceptionList:
-            return True
-        else:
-            return False
+        return Parser.ExMan.hasKey(self.getShowNameOnly())
 
     def getCleanShowName(self):
         '''
@@ -441,11 +438,12 @@ class Parser:
             rtype: Str
         '''
         # Check if in exceptionList and if has name key, return name else ...
-        if self._showNameisAnException() and self._getShowNameFromExceptionList() is not None:
+        if self._showNameIsAnException() \
+          and self._getShowNameFromExceptionList() is not None:
                 return self._getShowNameFromExceptionList()
         # Check if key exists and if keepPeriods is True or False
         # if keepPeriods is True just return showNameOnly
-        elif self._showNameisAnException() and self._showNameKeepsPeriods():
+        elif self._showNameIsAnException() and self._showNameKeepsPeriods():
             return self.getShowNameOnly()
         # keepPeriods is False so we want to remove any periods in the
         # showNameOnly()

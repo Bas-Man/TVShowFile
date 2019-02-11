@@ -1,7 +1,7 @@
 
 # coding=utf8
 
-#TODO: Move regex patterns into a dict for easier handling?
+# TODO: Move regex patterns into a dict for easier handling?
 
 regex_SXEX = r"""
 (?P<showname>.*)(?=(?:[. ](?:[S][0-9]{2})|[0-9][x])) #Show name
@@ -21,28 +21,38 @@ regex_SXEX = r"""
 )
 """
 
+regex_bydate = r"""
+(?P<showname>.*)[.] #Show Name
+(?P<year>\d{4})[.] #Show Year
+(?P<month>\d{2})[.] # Month
+(?P<date>\d{2})[.]
+(?:.*) # Get everything else but not the file extension
+[.]?(?<=(?P<fileext>[a-z]{3}|[a-z]{2}[0-9]{1}) # Get the file extension
+)
+"""
+
 regex_title_year = r"""
-	(?P<ShowName>.*)(?=(?:[. ](?:[S][0-9]{2})|[s][0-9][x])) #Show name
-	(?: # Get year if present
-	[ .]?(?<=(?P<Year>[.(]\d{4}[).]))
-	| # Blank alternate required
-	)
-	"""
+(?P<ShowName>.*)(?=(?:[. ](?:[S][0-9]{2})|[s][0-9][x])) #Show name
+(?: # Get year if present
+[ .]?(?<=(?P<Year>[.(]\d{4}[).]))
+| # Blank alternate required
+)
+"""
 
 regex_name_only = r"""
-	(?P<title1>.*)\s\(\d{4}
-	|
-	(?P<title2>.*)(^[.]\d{4})
-	|
-	(?P<title3>.*)[. ]\(
-	|
-	(?P<title4>.*[^\d)])[. ]+(\d{4}|S).*
-	"""
+(?P<title1>.*)\s\(\d{4}
+|
+(?P<title2>.*)(^[.]\d{4})
+|
+(?P<title3>.*)[. ]\(
+|
+(?P<title4>.*[^\d)])[. ]+(\d{4}|S).*
+"""
 
 regex_YEAR = r"""
-	(?P<year>\d{4})[ ).S]+
-	"""
+(?P<year>\d{4})[ ).S]+
+"""
 
 regex_resolution = r"""
-	(?P<resolution>[0-9]{3,4}[p|i])
-	"""
+(?P<resolution>[0-9]{3,4}[p|i])
+"""
