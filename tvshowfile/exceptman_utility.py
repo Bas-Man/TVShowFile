@@ -71,17 +71,17 @@ def main():
                     print("Changes not saved")
             sys.exit()
             break
-        elif command == "list":
+        elif command == "l":
             print_dict(ExMan.ExceptList)
 
-        elif command == "key":
+        elif command == "k":
             subcommand = input("Enter key: ")
             print_by_key(ExMan, subcommand)
 
         elif command == "h":
             list_commands()
 
-        elif command == "add":
+        elif command == "a":
             addKey(ExMan)
 
 
