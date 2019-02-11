@@ -117,7 +117,8 @@ class ExceptionListManager:
         else:
             try:
                 with open(self.fullpath, 'w') as fhandle:
-                    json.dump(self.ExceptList, fhandle, indent=4, sort_keys=True)
+                    json.dump(self.ExceptList, fhandle, indent=4,
+                              sort_keys=True)
 
             except FileNotFoundError as myErr:
                 self.path = "/tmp"
@@ -125,7 +126,8 @@ class ExceptionListManager:
                 print("Unable to write file.")
                 print("File: {} has been written to /tmp.".format(self.file))
                 with open(self.pullpath, 'w') as fhandle:
-                    json.dump(self.ExceptList, fhandle, indent=4, sort_keys=True)
+                    json.dump(self.ExceptList, fhandle, indent=4,
+                              sort_keys=True)
 
             return True
 
