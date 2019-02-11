@@ -67,6 +67,7 @@ def main():
                 dosave = input("Do you want to save your changes?  ")
                 if dosave == 'y':
                     print("Saving")
+                    ExMan.saveExceptionList()
                 else:
                     print("Changes not saved")
             sys.exit()
