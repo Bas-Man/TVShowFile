@@ -1,7 +1,7 @@
 
 # coding=utf8
 
-#TODO: Move regex patterns into a dict for easier handling?
+# TODO: Move regex patterns into a dict for easier handling?
 
 regex_SXEX = r"""
 (?P<showname>.*)(?=(?:[. ](?:[S][0-9]{2})|[0-9][x])) #Show name
