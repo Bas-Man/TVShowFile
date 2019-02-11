@@ -111,8 +111,8 @@ class ExceptionListManager:
             been changed
             rtype: Success or Failure value?
         '''
-        if MyExceptList is None:
-            return False
+        if MyExceptList is None:  #
+            MyExceptList = self.exportList()
 
         if not self._updated:  # No changes made. Do not save.
             return True
