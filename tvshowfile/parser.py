@@ -118,6 +118,10 @@ class Parser:
 
     def _patternByDate(self, match2):
         '''
+            This is an internal function and should not need to be called.
+            It is called by __init__
+            It should match file names like Jimmy.Fallon.2019.01.29*.mkv
+
         '''
 
         self._showName = match2.group("showname")
