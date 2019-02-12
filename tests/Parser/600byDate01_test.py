@@ -23,7 +23,7 @@ class TVShowFileParserTests(unittest.TestCase):
         print("Year: " + self.filename.year)
         print("Month: " + self.filename.month)
         print("Date: " + self.filename.date)
-        # print("ShowNameOnly: " + self.filename.getCleanShowName())
+        print("ShowNameOnly: " + self.filename.getCleanShowName())
         print("Ext: " + self.filename.fileExt)
         if self.filename.wasParsed:
             print("wasParsed is True")
