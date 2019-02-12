@@ -30,5 +30,6 @@ class TVShowFileParserTests(unittest.TestCase):
     def testgetShowData(self):
         self.assertTrue(self.filename.getShowData())
 
+
 if __name__ == '__main__':
     unittest.main()

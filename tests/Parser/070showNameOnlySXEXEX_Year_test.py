@@ -31,9 +31,6 @@ class TVShowFileParserTests(unittest.TestCase):
         print("Year: " + self.filename.year)
         print("ShowNameOnly: " + self.filename.getShowNameOnly())
 
-    def testgetShowData(self):
-        self.assertTrue(self.filename.getShowData())
-
     def testgetShowNameOnly(self):
         self.assertEqual(self.filename.getShowNameOnly(), 'test')
 
@@ -42,6 +39,7 @@ class TVShowFileParserTests(unittest.TestCase):
 
     def testisMultiEpisode(self):
         self.assertTrue(self.filename.isMultiEpisode)
+
 
 if __name__ == '__main__':
     unittest.main()

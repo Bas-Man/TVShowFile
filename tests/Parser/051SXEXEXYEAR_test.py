@@ -27,15 +27,13 @@ class TVShowFileParserTests(unittest.TestCase):
         print("SeasonEpisode: " + self.filename.seasonEpisode)
         print("Ext: " + self.filename.fileExt)
 
-    def testgetShowData(self):
-        self.assertTrue(self.filename.getShowData())
-
     def testisMultiEpisode(self):
         self.assertTrue(self.filename.multiEpisode)
 
     def testhasYear(self):
         self.assertTrue(self.filename.year,
             "Year is True as filename does not contain a Year")
+
 
 if __name__ == '__main__':
     unittest.main()
