@@ -29,7 +29,7 @@ class TVShowFileParserTests(unittest.TestCase):
             print("wasParsed is True")
 
     def testgetCleanShowName(self):
-        self.assertEquals(self.filename.getCleanShowName(), "TMZ on TV")
+        self.assertEqual(self.filename.getCleanShowName(), "TMZ on TV")
 
 
 if __name__ == '__main__':
