@@ -49,7 +49,7 @@ class Parser:
         self.resolution = None
         self._fileExt = None
         self.multiEpisode = False
-        self.Parsed = False
+        self._parsed = False
 
         # Failed to get any input
         if not filename:
@@ -106,14 +106,14 @@ class Parser:
 
         if match:
             self._patternSXEX(match)
-            self.Parsed = True
+            self._parsed = True
             return True
         elif match2:
             self._patternByDate(match2)
-            self.Parsed = True
+            self._parsed = True
             return True
         else:
-            self.Parsed = False
+            self._parsed = False
             return False
 
     def _patternByDate(self, match2):
@@ -392,7 +392,7 @@ class Parser:
             else:
                 # move to next
         '''
-        return self.Parsed
+        return self._parsed
 
     def getShowNameOnly(self):
         '''

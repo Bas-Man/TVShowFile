@@ -22,7 +22,7 @@ class TVShowFileParserTests(unittest.TestCase):
         self.assertFalse(self.filename.getShowData())
 
     def testFileNotValid(self):
-        self.assertFalse(self.filename.Parsed)
+        self.assertFalse(self.filename._parsed)
 
 
 if __name__ == '__main__':
