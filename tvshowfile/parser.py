@@ -48,7 +48,7 @@ class Parser:
         self.lastEpisode = None
         self.resolution = None
         self._fileExt = None
-        self.multiEpisode = False
+        self._multiEpisode = False
         self._parsed = False
 
         # Failed to get any input
@@ -158,7 +158,7 @@ class Parser:
                 self._season, self.firstEpisode, self.lastEpisode
                 )
             # Set multiEpisode to True
-            self.multiEpisode = True
+            self._multiEpisode = True
         # Single Episode file
         else:
             self._episode = match.group("episode")
@@ -367,7 +367,7 @@ class Parser:
 
             Returns True or False
         '''
-        if self.multiEpisode:
+        if self._multiEpisode:
             return True
         return False
 

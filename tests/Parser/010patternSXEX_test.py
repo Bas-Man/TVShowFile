@@ -39,7 +39,7 @@ class TVShowFileParserTests(unittest.TestCase):
             "Year is False as filename does not contain a Year")
 
     def testisMultiEpisode(self):
-        self.assertFalse(self.filename.multiEpisode)
+        self.assertFalse(self.filename.isMultiEpisode)
 
 
 if __name__ == '__main__':

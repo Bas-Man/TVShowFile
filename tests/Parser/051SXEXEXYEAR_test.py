@@ -28,7 +28,7 @@ class TVShowFileParserTests(unittest.TestCase):
         print("Ext: " + self.filename.fileExt)
 
     def testisMultiEpisode(self):
-        self.assertTrue(self.filename.multiEpisode)
+        self.assertTrue(self.filename.isMultiEpisode)
 
     def testhasYear(self):
         self.assertTrue(self.filename.year,
