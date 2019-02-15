@@ -35,7 +35,7 @@ class ExceptionListManager:
     def __ValidatePathFile(self):
         '''
             Check that the directory structure and file are valid for loading
-            If either are not valid raise and OSError
+            If either are not valid raise an OSError
         '''
         if not os.path.exists(self._path):
             raise OSError(
