@@ -55,6 +55,13 @@ class Parser:
         if not filename:
             return None
         else:
+            # Load the ExceptionList data Exman and ExceptionList are Global
+            # This should only need to be loaded once
+
+            if Parser.ExMan is None:
+                Parser.ExMan = ExceptionListManager()
+                Parser.ExMan.loadExceptionList()
+
             self.getShowData()
 
     # Object Destructor
@@ -69,37 +76,14 @@ class Parser:
         attributes
 
         '''
-
-        # Load the ExceptionList data Exman and ExceptionList are Global
-        # This should only need to be loaded once
-        # TODO: Testing needed to confirm this only happens once during
-        # program execution
-
-        if Parser.ExMan is None:
-            Parser.ExMan = ExceptionListManager()
-            Parser.ExMan.loadExceptionList()
-
-        pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
-        match = pattern.match(self._fileName)
-
-        pattern2 = re.compile(regex_bydate, re.IGNORECASE | re.VERBOSE)
-        match2 = pattern2.match(self._fileName)
-
-        # TODO: This should be changed at some point to support multiple
-        # regex patterns
-
-        if match:
-            self._patternSXEX(match)
-            self._parsed = True
+        if self._patternSXEX():
             return True
-        elif match2:
-            self._patternByDate(match2)
-            self._parsed = True
+        elif self._patternByDate():
             return True
         else:
             return False
 
-    def _patternByDate(self, match2):
+    def _patternByDate(self):
         '''
             This is an internal function and should not need to be called.
             It is called by __init__
@@ -107,13 +91,21 @@ class Parser:
 
         '''
 
-        self._showName = match2.group("showname")
-        self._year = match2.group("year")
-        self._month = match2.group("month")
-        self._date = match2.group("date")
-        self._fileExt = match2.group("fileext")
+        pattern = re.compile(regex_bydate, re.IGNORECASE | re.VERBOSE)
+        match = pattern.match(self._fileName)
 
-    def _patternSXEX(self, match):
+        if match:
+            self._showName = match.group("showname")
+            self._year = match.group("year")
+            self._month = match.group("month")
+            self._date = match.group("date")
+            self._fileExt = match.group("fileext")
+            self._parsed = True
+            return True
+        else:
+            return False
+
+    def _patternSXEX(self):
         '''
             This is an internal function and should not need to be called.
             It is called by __init__
@@ -127,31 +119,40 @@ class Parser:
         # EXX and EXXEXX are matched conditionally
         # Year of first Episode and resolution are looked for but not assumed
         # to be present
-        self._showName = match.group("showname")
-        self._season = match.group("showseason")
-        self._fileExt = match.group("fileext")
 
-        # Optional Values
-        # Multi Episode file
-        if match.group("firstepisode"):
-            self.firstEpisode = match.group("firstepisode")
-            self.lastEpisode = match.group("lastepisode")
-            # Build Season and Mulit Episode String
-            self._seasonEpisode = "S{0}E{1}E{2}".format(
-                self._season, self.firstEpisode, self.lastEpisode
-                )
-            # Set multiEpisode to True
-            self._multiEpisode = True
-        # Single Episode file
+        pattern = re.compile(regex_SXEX, re.IGNORECASE | re.VERBOSE)
+        match = pattern.match(self._fileName)
+
+        if match:
+            self._showName = match.group("showname")
+            self._season = match.group("showseason")
+            self._fileExt = match.group("fileext")
+
+            # Optional Values
+            # Multi Episode file
+            if match.group("firstepisode"):
+                self.firstEpisode = match.group("firstepisode")
+                self.lastEpisode = match.group("lastepisode")
+                # Build Season and Mulit Episode String
+                self._seasonEpisode = "S{0}E{1}E{2}".format(
+                    self._season, self.firstEpisode, self.lastEpisode
+                    )
+                # Set multiEpisode to True
+                self._multiEpisode = True
+            # Single Episode file
+            else:
+                self._episode = match.group("episode")
+                # Build Season and single Episode String
+                self._seasonEpisode = "S{0}E{1}".format(self._season,
+                                                        self._episode)
+            # File contains a Year
+            self._patternYear()
+            # File contains resolution
+            self._getResolution()
+            self._parsed = True
+            return True
         else:
-            self._episode = match.group("episode")
-            # Build Season and single Episode String
-            self._seasonEpisode = "S{0}E{1}".format(self._season,
-                                                    self._episode)
-        # File contains a Year
-        self._patternYear()
-        # File contains resolution
-        self._getResolution()
+            return False
 
     def _patternYear(self):
         '''
