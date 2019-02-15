@@ -76,11 +76,11 @@ class Parser:
         attributes
 
         '''
-        if self._patternSXEX():
+        if self._patternSXEX():     # Match was found and file parsed
             return True
-        elif self._patternByDate():
+        elif self._patternByDate():  # Match was found and file was parsed
             return True
-        else:
+        else:   # No Match found and we could not parse the filename
             return False
 
     def _patternByDate(self):
@@ -89,6 +89,7 @@ class Parser:
             It is called by __init__
             It should match file names like Jimmy.Fallon.2019.01.29*.mkv
 
+            rtype Bool
         '''
 
         pattern = re.compile(regex_bydate, re.IGNORECASE | re.VERBOSE)
@@ -112,7 +113,7 @@ class Parser:
             It should match file names with Series and Episodes in the form
             of SXXEXX  or SXXEXXEXX (Multi-Episode)
 
-            This method as no return type SEE method 'wasParsed'
+            rtype Bool
         '''
 
         # showName, season, and fileExt are expected to match as a minimum
