@@ -46,7 +46,7 @@ class Parser:
         self._seasonEpisode = None
         self.firstEpisode = None
         self.lastEpisode = None
-        self.resolution = None
+        self._resolution = None
         self._fileExt = None
         self._multiEpisode = False
         self._parsed = False
@@ -188,7 +188,7 @@ class Parser:
         match = pattern.search(self._fileName)
 
         if match:
-            self.resolution = match.group("resolution")
+            self._resolution = match.group("resolution")
 
     @property
     def fileName(self):
@@ -316,7 +316,8 @@ class Parser:
         else:
             return ""
 
-    def getResolution(self):
+    @property
+    def resolution(self):
         '''
             Get the string held in attribute resolution
 
@@ -324,8 +325,8 @@ class Parser:
             found
             This will be something like 720p or 1080p
         '''
-        if self.resolution is not None:
-            return self.resolution
+        if self._resolution is not None:
+            return self._resolution
         else:
             return ""
 
@@ -362,7 +363,7 @@ class Parser:
 
             Returns True or False
         '''
-        if self.resolution is not None:
+        if self._resolution is not None:
             return True
         return False
 
