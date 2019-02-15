@@ -97,7 +97,6 @@ class Parser:
             self._parsed = True
             return True
         else:
-            self._parsed = False
             return False
 
     def _patternByDate(self, match2):
