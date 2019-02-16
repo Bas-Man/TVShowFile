@@ -475,7 +475,7 @@ class Parser:
         '''
         # Check if in exceptionList and if has name key, return name else ...
         if self._showNameIsAnException() \
-          and self._getShowNameFromExceptionList() is not None:
+           and self._getShowNameFromExceptionList() is not None:
                 return self._getShowNameFromExceptionList()
         # Check if key exists and if keepPeriods is True or False
         # if keepPeriods is True just return showNameOnly
