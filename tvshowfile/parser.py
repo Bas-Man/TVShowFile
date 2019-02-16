@@ -4,6 +4,7 @@ import datetime
 
 from .patterns import regex_SXEX, regex_bydate, regex_name_only
 from .patterns import regex_YEAR, regex_resolution
+from .patterns import listOfSubExts
 from .exceptman import ExceptionListManager
 
 # This may be used to store exception show names in the module directory
@@ -484,3 +485,16 @@ class Parser:
         # showNameOnly()
         else:
             return self.showNameOnly.replace('.', ' ')
+
+    @property
+    def isSubs(self):
+        '''
+            Allows user to check if the file a subtitle file based on extension
+            Currently supports srt, smi, ass, ssa, and TVShowFileParserTests
+
+            rtype: Bool
+        '''
+        if self.fileExt in listOfSubExts:
+            return True
+        else:
+            return False

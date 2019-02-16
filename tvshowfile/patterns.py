@@ -56,3 +56,6 @@ regex_YEAR = r"""
 regex_resolution = r"""
 (?P<resolution>[0-9]{3,4}[p|i])
 """
+
+# List of Subtitle extensions for checking
+listOfSubExts = ['srt', 'smi', 'ssa', 'ass', 'vtt']
