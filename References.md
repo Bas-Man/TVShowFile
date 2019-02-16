@@ -16,3 +16,8 @@ Code References:
 
 # Shows by date Patterns
 # https://regex101.com/r/IHOqXz/1
+
+# Specific Regex Patterns
+# Encoding https://regex101.com/r/CoUYpI/1/
+# Ripper  https://regex101.com/r/LvgRvh/1/
+# Subtitles https://regex101.com/r/ZJiolp/1
