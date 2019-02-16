@@ -17,8 +17,8 @@ class Parser:
 
     '''
         This object has the responsibility of collecting information from the
-        file name of a TV show DVD rip or other digital source
-        Give a filename such as "Castle.2009.S01E01.avi" it will identify and
+        file name of a TV show DVD rip or other digital source.
+        Given a filename such as "Castle.2009.S01E01.avi" it will identify and
         store the following elements
         The object will be populated using __init__
 
@@ -37,7 +37,7 @@ class Parser:
     def __init__(self, filename):
         self._fileName = filename
         self._showName = None
-        self.showNameOnly = None
+        self._showNameOnly = None
         self._year = None
         self._month = None
         self._date = None
@@ -380,7 +380,8 @@ class Parser:
         '''
         return self._parsed
 
-    def getShowNameOnly(self):
+    @property
+    def showNameOnly(self):
         '''
             Return the show name without year if it exists
 
@@ -389,9 +390,9 @@ class Parser:
         # TODO: This may need to be changed to handle show names that have four
         # digits in their names
         # TODO: Example "The 4400"
-        if self.showNameOnly is not None:
+        if self._showNameOnly is not None:
             # This has been called before, simply return stored value
-            return self.showNameOnly
+            return self._showNameOnly
         else:
             '''
              if showNameIsAnException is true then the name is complete already
@@ -400,8 +401,8 @@ class Parser:
              happen
             '''
             if self.showNameIsAnException():
-                self.showNameOnly = self._showName
-                return self.showNameOnly
+                self._showNameOnly = self._showName
+                return self._showNameOnly
             # We need to parse, set and return. This function has not
             # previously been called
             pattern = re.compile(regex_name_only, re.IGNORECASE | re.VERBOSE)
@@ -419,11 +420,11 @@ class Parser:
                     if match.group(groupNum) is not None:
                         # This group has a match we can use it and break
                         # from loop
-                        self.showNameOnly = match.group(groupNum)
+                        self._showNameOnly = match.group(groupNum)
                         break
-                return self.showNameOnly
+                return self._showNameOnly
             else:
-                self.showNameOnly = ""
+                self._showNameOnly = ""
                 return ""
 
     def showNameIsAnException(self):
@@ -444,7 +445,7 @@ class Parser:
             Example S.W.A.T
             rtype True or False
         '''
-        return Parser.ExMan.keepsPeriods(self.getShowNameOnly())
+        return Parser.ExMan.keepsPeriods(self.showNameOnly)
 
     def _getShowNameFromExceptionList(self):
         '''
@@ -460,7 +461,7 @@ class Parser:
             Internal method to check if show name is in our ExceptionList
             rtype True or False
         '''
-        return Parser.ExMan.hasKey(self.getShowNameOnly())
+        return Parser.ExMan.hasKey(self.showNameOnly)
 
     def getCleanShowName(self):
         '''
@@ -478,8 +479,8 @@ class Parser:
         # Check if key exists and if keepPeriods is True or False
         # if keepPeriods is True just return showNameOnly
         elif self._showNameIsAnException() and self._showNameKeepsPeriods():
-            return self.getShowNameOnly()
+            return self.showNameOnly
         # keepPeriods is False so we want to remove any periods in the
         # showNameOnly()
         else:
-            return self.getShowNameOnly().replace('.', ' ')
+            return self.showNameOnly.replace('.', ' ')

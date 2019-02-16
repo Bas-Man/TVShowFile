@@ -12,7 +12,7 @@ class TVShowFileParserTests(unittest.TestCase):
 
     def testObjValuesSet(self):
         self.assertEqual(self.filename.showName, "test.2018")
-        self.filename.getShowNameOnly()
+        self.filename.showNameOnly
         self.assertEqual(self.filename.showNameOnly, "test")
         self.assertEqual(self.filename._season, "01")
         self.assertIsNone(self.filename._episode)
@@ -29,10 +29,10 @@ class TVShowFileParserTests(unittest.TestCase):
         print("SeasonEpisode: " + self.filename.seasonEpisode)
         print("Ext: " + self.filename.fileExt)
         print("Year: " + self.filename.year)
-        print("ShowNameOnly: " + self.filename.getShowNameOnly())
+        print("ShowNameOnly: " + self.filename.showNameOnly)
 
     def testgetShowNameOnly(self):
-        self.assertEqual(self.filename.getShowNameOnly(), 'test')
+        self.assertEqual(self.filename.showNameOnly, 'test')
 
     def testhasYear(self):
         self.assertTrue(self.filename.hasYear)

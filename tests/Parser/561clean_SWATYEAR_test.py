@@ -18,7 +18,7 @@ class TVShowFileParserTests(unittest.TestCase):
         self.assertEqual(self.filename._fileExt, "avi")
         self.assertIsNone(self.filename.firstEpisode)
         self.assertIsNone(self.filename.lastEpisode)
-        self.assertEqual(self.filename.getShowNameOnly(), "S.W.A.T")
+        self.assertEqual(self.filename.showNameOnly, "S.W.A.T")
         self.assertTrue(self.filename.wasParsed)
         print("\nFile: " + self.filename.fileName)
         print("Name: " + self.filename.showName)

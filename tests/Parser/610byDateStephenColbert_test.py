@@ -16,7 +16,7 @@ class TVShowFileParserTests(unittest.TestCase):
     def testObjValuesSet(self):
         self.assertEqual(self.filename._showName, "Stephen.Colbert")
         self.assertEqual(self.filename._fileExt, "mkv")
-        self.assertEqual(self.filename.getShowNameOnly(), "Stephen.Colbert")
+        self.assertEqual(self.filename.showNameOnly, "Stephen.Colbert")
         self.assertTrue(self.filename.wasParsed)
         print("\nFile: " + self.filename.fileName)
         print("Name: " + self.filename.showName)
