@@ -57,5 +57,9 @@ regex_resolution = r"""
 (?P<resolution>[0-9]{3,4}[p|i])
 """
 
+regex_subtitle = r"""
+(?P<lang>[a-z]{2,})[.](?P<subsext>srt|smi|ssa|ass|vtt)$
+"""
+
 # List of Subtitle extensions for checking
 listOfSubExts = ['srt', 'smi', 'ssa', 'ass', 'vtt']
