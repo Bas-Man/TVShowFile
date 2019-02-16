@@ -4,7 +4,7 @@ import datetime
 
 from .patterns import regex_SXEX, regex_bydate, regex_name_only
 from .patterns import regex_YEAR, regex_resolution
-from .patterns import listOfSubExts
+from .patterns import listOfSubExts, regex_subtitle
 from .exceptman import ExceptionListManager
 
 # This may be used to store exception show names in the module directory
@@ -51,6 +51,7 @@ class Parser:
         self._fileExt = None
         self._multiEpisode = False
         self._parsed = False
+        self._lang = None
 
         # Failed to get any input
         if not filename:
@@ -498,3 +499,21 @@ class Parser:
             return True
         else:
             return False
+
+    @property
+    def subLanguage(self):
+        '''
+            rtype: Str
+        '''
+        if self._lang is not None:
+            return self._lang
+        else:
+            pattern = re.compile(regex_subtitle, re.IGNORECASE | re.VERBOSE)
+            match = pattern.search(self._fileName)
+
+            if match:
+                self._lang = match.group('lang')
+            else:
+                self._lang = ""
+
+            return self._lang
