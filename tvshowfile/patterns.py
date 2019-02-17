@@ -64,6 +64,8 @@ regex_subtitle = r"""
 # List of Subtitle extensions for checking
 listOfSubExts = ['srt', 'smi', 'ssa', 'ass', 'vtt']
 
+#  [\[] the \ is used as python gives a FutureWarning without it.
+#  It appears we need to escape the second [ character in the class specifier
 regex_ripper = r"""
-[[]?(?P<ripper>fov|vtv|ettv|rmteam|eztv)[]]?
+[\[]?(?P<ripper>fov|vtv|ettv|rmteam|eztv)[]]?
 """
