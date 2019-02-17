@@ -10,7 +10,7 @@ class TVShowFileParserTests(unittest.TestCase):
     def tearDown(self):
         self.filename = None
 
-    def testisSubtitleFileSRT(self):
+    def testisSubtitleFileASS(self):
         self.assertTrue(self.filename.isSubs)
 
 

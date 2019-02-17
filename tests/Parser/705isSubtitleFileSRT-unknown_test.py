@@ -10,7 +10,7 @@ class TVShowFileParserTests(unittest.TestCase):
     def tearDown(self):
         self.filename = None
 
-    def testSubtitleIsen(self):
+    def testSubtitleIsUnknown(self):
         self.assertEqual(self.filename.subLanguage, '')
 
 
