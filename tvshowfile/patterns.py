@@ -63,3 +63,7 @@ regex_subtitle = r"""
 
 # List of Subtitle extensions for checking
 listOfSubExts = ['srt', 'smi', 'ssa', 'ass', 'vtt']
+
+regex_ripper = r"""
+[[]?(?P<ripper>fov|vtv|ettv|rmteam|eztv)[]]?
+"""

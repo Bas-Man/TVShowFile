@@ -4,7 +4,7 @@ import datetime
 
 from .patterns import regex_SXEX, regex_bydate, regex_name_only
 from .patterns import regex_YEAR, regex_resolution
-from .patterns import listOfSubExts, regex_subtitle
+from .patterns import listOfSubExts, regex_subtitle, regex_ripper
 from .exceptman import ExceptionListManager
 
 # This may be used to store exception show names in the module directory
@@ -52,6 +52,7 @@ class Parser:
         self._multiEpisode = False
         self._parsed = False
         self._lang = None
+        self._ripper = None
 
         # Failed to get any input
         if not filename:
@@ -517,3 +518,21 @@ class Parser:
                 self._lang = ""
 
             return self._lang
+
+    @property
+    def ripper(self):
+        '''
+            rtype: Str
+        '''
+        if self._ripper is not None:
+            return self._ripper
+        else:
+            pattern = re.compile(regex_ripper, re.IGNORECASE | re.VERBOSE)
+            match = pattern.search(self._fileName)
+
+            if match:
+                self._ripper = match.group('ripper')
+            else:
+                self._ripper = ""
+
+            return self._ripper
