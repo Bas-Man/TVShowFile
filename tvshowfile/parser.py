@@ -71,13 +71,12 @@ class Parser:
     def __del__(self):
         pass
 
-    # Parse show filename and store required information in object
-    # attributes
     def getShowData(self):
         '''
         Parse show filename and store required information in object
         attributes
 
+        rtype: Bool
         '''
         if self._patternSXEX():     # Match was found and file parsed
             return True
@@ -200,7 +199,7 @@ class Parser:
             Get the string held in filename. The full name of the file being
             processed
 
-            Returns a Str
+            trype: Str
         '''
         return self._fileName
 
@@ -211,7 +210,7 @@ class Parser:
             contain any characthers like . - or others which separate words in
             the name
 
-            Returns a Str
+            rtype: Str
         '''
         return self._showName
 
@@ -221,7 +220,7 @@ class Parser:
             Get the string held in Season.
             This will be a number only without the "S"
 
-            Returns a Str
+            rtype: Str
         '''
         return self._season
 
@@ -231,7 +230,7 @@ class Parser:
             Get the string held in episode. This will be empty if
             isMultiEpisode is True. This will be a number only without the "E"
 
-            Returns a Str
+            rtype: Str
         '''
         # If this is True then episode will still be None.
         # We should return an empty string
@@ -245,7 +244,7 @@ class Parser:
             Get the string held in seasonEpisode This will be in the form of
             SXXEXX or SXXEXXEXX
 
-            Returns a Str
+            rtype: Str
         '''
         return self._seasonEpisode
 
@@ -253,6 +252,7 @@ class Parser:
     def fileExt(self):
         '''
             Get the string held in fileExt should be avi mp3 srt or such
+            rtype: Str
         '''
         return self._fileExt
 
@@ -263,7 +263,7 @@ class Parser:
 
             You should check if isMultiEpisode is True before calling this
             method
-            Returns a Str
+            rtype: Str
         '''
         if self.firstEpisode is not None:
             return self.firstEpisode
@@ -277,7 +277,7 @@ class Parser:
 
             You should check if isMultiEpisode is True before calling this
             method
-            Returns a Str
+            rtype: Str
         '''
         if self.lastEpisode is not None:
             return self.lastEpisode
@@ -290,6 +290,7 @@ class Parser:
             Get the string held in attribute year
             Returns a Str. This will be "" if there is no year was found in the
             filename
+            rtype: Str
         '''
         if self._year is not None:
             return self._year
@@ -302,6 +303,7 @@ class Parser:
             Get the string held in attribute month
             Returns a Str. This will be "" if there is no month was found in
             the filename
+            rtype: Str
         '''
         if self._month is not None:
             return self._month
@@ -314,6 +316,7 @@ class Parser:
             Get the string held in attribute date
             Returns a Str. This will be "" if there is no date was found in the
             filename
+            rtype: Str
         '''
         if self._date is not None:
             return self._date
@@ -325,9 +328,10 @@ class Parser:
         '''
             Get the string held in attribute resolution
 
-            Returns a Str. This will be an empty string if no resolution was
+            This will be an empty string if no resolution was
             found
             This will be something like 720p or 1080p
+            rtype: Str
         '''
         if self._resolution is not None:
             return self._resolution
@@ -339,7 +343,7 @@ class Parser:
         '''
             Check that Filename had a Year used before calling getYear
 
-            Returns True or False
+            rtype: Bool
         '''
         if self._year is not None:
             return True
@@ -354,7 +358,7 @@ class Parser:
             This method should be called so you know if you should call
             getEpisode() or getFirstEpisode() and getLastEpisode()
 
-            Returns True or False
+            rtype: Bool
         '''
         if self._multiEpisode:
             return True
@@ -365,7 +369,7 @@ class Parser:
         '''
             Check if filename contains a resolution string like 720p
 
-            Returns True or False
+            rtype: Bool
         '''
         if self._resolution is not None:
             return True
@@ -374,7 +378,7 @@ class Parser:
     @property
     def wasParsed(self):
         '''
-            Return True or False if the file was able to be parsed.
+            rtype: Bool
 
             if obj.wasParsed:
                 # Do some work
@@ -397,12 +401,12 @@ class Parser:
             # This has been called before, simply return stored value
             return self._showNameOnly
         else:
-            '''
-             if showNameIsAnException is true then the name is complete already
-             We will use it as is without trying to re-parse the name.
-             This does short circuit the logic so the "if match:" does not
-             happen
-            '''
+
+         # if showNameIsAnException is true then the name is complete already
+         # We will use it as is without trying to re-parse the name.
+         # This does short circuit the logic so the "if match:" does not
+         # happen
+
             if self.showNameIsAnException():
                 self._showNameOnly = self._showName
                 return self._showNameOnly
@@ -435,7 +439,7 @@ class Parser:
             Using nested Dictionaries. This checks that there is an initial
             Key in the ExceptionList
 
-            rtype: True or False
+            rtype: Bool
         '''
         if Parser.ExMan.hasKey(self._showName.lower()):
             return True
@@ -446,7 +450,7 @@ class Parser:
         '''
             Internal method to check if the show name should keep its periods
             Example S.W.A.T
-            rtype True or False
+            rtype: Bool
         '''
         return Parser.ExMan.keepsPeriods(self.showNameOnly)
 
@@ -455,14 +459,14 @@ class Parser:
             Internal method this returns the value from key: name or None if
             if key is not found
 
-            rtype: None or Str
+            rtype:  Str
         '''
         return Parser.ExMan.getShowNameByKey(self.showName)
 
     def _showNameIsAnException(self):
         '''
             Internal method to check if show name is in our ExceptionList
-            rtype True or False
+            rtype: Bool
         '''
         return Parser.ExMan.hasKey(self.showNameOnly)
 
@@ -504,6 +508,8 @@ class Parser:
     @property
     def subLanguage(self):
         '''
+            returns the language given in the filename. E.G en.srt will
+            return en
             rtype: Str
         '''
         if self._lang is not None:
@@ -522,6 +528,7 @@ class Parser:
     @property
     def ripper(self):
         '''
+            Return the group that created the rip if present in the file.
             rtype: Str
         '''
         if self._ripper is not None:
